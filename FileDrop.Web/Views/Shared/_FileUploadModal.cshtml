@@ -1,0 +1,37 @@
+﻿<!-- Modal -->
+<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="uploadModalLabel">Upload Files</h4>
+            </div>
+            <div class="modal-body" id="dropZoneDiv">
+                <div class="form-group">
+                    <div>
+                        <div class="previewMessage">
+                            <span>Click here to upload your files, or drag and drop a file into this box</span><br/>
+                            <span>Your files will automatically be uploaded</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix" id="progressSection" style="margin-top: 30px; display: none">
+                    <div class="form-group" style="text-align: center">
+                        @*<h4 style="color: white;">Progress</h4>*@
+                        <div style="border: 1px solid white; width: 90%; height: 30px; margin-right: auto; margin-left: auto; border-radius: 25px; text-align: center;">
+                            <div style="background-color: #2170c2; width: 0; height: 30px; border-radius: 25px 0 0 25px; " id="progressBar">
+                            </div>
+                            <span id="progressPercent" style="font-weight: bold; position: relative; top: -25px; z-index: 5000; color: black;">0%</span>
+                        </div>
+                    </div>
+                    <div class="form-group" id="progressMessage" style="text-align: center">
+                        <h4 style="color: white;">Uploading File, Please Wait...</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

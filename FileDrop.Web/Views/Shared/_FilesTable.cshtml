@@ -1,0 +1,52 @@
+﻿@model FileDrop.Web.Models.FilesViewModel
+
+@if (Model.Files.Count <= 0)
+{
+    <span class="text-center text-muted">No Files Found...</span>
+}
+
+else
+{
+    <table class="table" id="filesTable" data-resourceurl="@Url.Action("GetAllFiles","File")">
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>File Type</th>
+                <th>File Size (MB)</th>
+                <th>Uploaded On</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Files)
+            {
+                <tr>
+                    <td data-fileid="@item.Id" data-filename="true" class="col-md-6">
+                        <span class="editText">@item.FileName</span>
+                        @Html.TextBoxFor(model => item.FileName, new { @class = "form-control", style = "display:none; width: 50%" })
+                        <button data-url="@Url.Action("UpdateFileName", "File")" data-editmode="false" class="btn btn-danger btn-sm pull-right editFile" style="display: none">Edit</button>
+                    </td>
+                    <td>@item.FileType</td>
+                    <td>@string.Format("{0:N2}", item.FileSize)</td>
+                    <td>@item.UploadDateTime.ToShortDateString()</td>
+                    <td>
+                        <button data-fileid="@item.Id" data-resourceurl="@Url.Action("DownloadFile", "File", new {id = item.Id})" class="btn btn-sm btn-link downloadFile" data-toggle="tooltip" data-placement="top" title="Download File">
+                            <i class="fa fa-download"></i>
+                        </button>
+                    </td>
+                    <td>
+                        @if (item.IsImage)
+                        {
+                            <button data-fileid="@item.Id" data-resourceurl="@Url.Action("EditImage", "File", new {id = item.Id})" class="btn btn-sm btn-link editImage" data-toggle="tooltip" data-placement="top" title="Edit Image">
+                                <i class="fa fa-picture-o"></i>
+                            </button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
+}

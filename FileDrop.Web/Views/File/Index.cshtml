@@ -1,0 +1,40 @@
+﻿@using System.Web.Optimization
+@model FileDrop.Web.Models.FilesViewModel
+@{
+    ViewBag.Title = "Index";
+    ViewBag.ActiveMenu = "Files";
+}
+
+@Styles.Render("~/Bundles/dropzonecss")
+
+<h2>
+    Files
+    <button id="uploadFile" class="btn btn-lg btn-link" data-toggle="tooltip" data-placement="top" title="Upload Files">
+        <i class="fa fa-cloud-upload"></i>
+    </button>
+
+</h2>
+
+
+<p></p>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Files
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div id="filesDiv" class="table-body">
+            @Html.Partial("_FilesTable", Model)
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_FileUploadModal")
+
+@section scripts
+{
+    @Scripts.Render("~/Bundles/dropzonejs")
+    @Scripts.Render("~/Bundles/camanjs")
+    <script src="~/js/files.js"></script>
+}

@@ -1,0 +1,49 @@
+﻿@using System.Web.Optimization
+@model FileDrop.Web.Models.ImageEditorViewModel
+
+@{
+    ViewBag.Title = Model.File.FileName;
+}
+
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            File Drop Image Editor
+        </h3>
+    </div>
+
+    <div class="table-body">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <div id="editingTools">
+                    <div class="form-group">
+                        <label id="brightnessLabel" for="brightnessSlider">Brightness: 0</label>
+                        <input id="brightnessSlider" type="range" min="-100" max="100" value="0" step="1"/>
+                    </div>
+                    <div class="form-group">
+                        <label id="contrastLabel" for="contrastSlider">Contrast: 0</label>
+                        <input id="contrastSlider" type="range" min="-100" max="100" value="0" step="1"/>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-xs">Save</button>
+                        <button class="btn btn-info btn-xs">Download</button>
+                        <button class="btn btn-danger btn-xs">Reset</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8 col-sm-8 col-xs-6">
+                <div id="imageEditor" class="table-body" >
+                    <img id="editImage" src="@Model.DataUrl" class="img-responsive" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/Bundles/camanjs")
+    <script src="~/js/image-editor.js"></script>
+}

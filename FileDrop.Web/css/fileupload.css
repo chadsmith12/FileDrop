@@ -1,0 +1,20 @@
+﻿#dropZoneDiv {
+  background: #c2c2c2;
+  border: black dashed 3px;
+  padding: 50px;
+  text-align: center;
+  color: black;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+.dz-upload {
+  display: block;
+  background-color: red;
+  height: 10px;
+  width: 0%;
+}
+.hover {
+  background-color: #f00;
+}
+/*# sourceMappingURL=fileupload.css.map */
