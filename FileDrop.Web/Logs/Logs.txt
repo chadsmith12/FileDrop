@@ -1861,3 +1861,83 @@ DEBUG 2015-11-10 03:38:11,149 [1    ] Abp.Localization.LocalizationManager     -
 DEBUG 2015-11-10 03:38:11,150 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: AbpWeb
 DEBUG 2015-11-10 03:38:13,952 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Found 0 classes defines auto mapping attributes
 DEBUG 2015-11-10 03:38:14,495 [1    ] Default                                  - Dynamic web api controller is created for type 'FileDrop.Interfaces.IFileService' with service name 'app/file'.
+DEBUG 2015-11-10 14:48:11,537 [1    ] Abp.Modules.AbpModuleManager             - Loading Abp modules...
+DEBUG 2015-11-10 14:48:21,642 [1    ] Abp.Modules.AbpModuleManager             - Found 11 ABP modules in total.
+DEBUG 2015-11-10 14:48:21,650 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AutoMapper.AbpAutoMapperModule, Abp.AutoMapper, Version=0.7.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 14:48:21,654 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AbpKernelModule, Abp, Version=0.7.3.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 14:48:21,654 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.EntityFramework.AbpEntityFrameworkModule, Abp.EntityFramework, Version=0.7.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 14:48:21,655 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.WebApi.AbpWebApiModule, Abp.Web.Api, Version=0.7.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 14:48:21,655 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Web.AbpWebModule, Abp.Web, Version=0.7.3.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 14:48:21,655 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Web.Mvc.AbpWebMvcModule, Abp.Web.Mvc, Version=0.7.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 14:48:21,656 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.FileDropApplicationModule, FileDrop.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 14:48:21,656 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.FileDropCoreModule, FileDrop.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 14:48:21,657 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.FileDropDataModule, FileDrop.EntityFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 14:48:21,657 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.Web.FileDropWebModule, FileDrop.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 14:48:21,657 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.FileDropWebApiModule, FileDrop.WebApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 14:48:21,762 [1    ] Abp.Modules.AbpModuleManager             - 11 modules loaded.
+DEBUG 2015-11-10 14:48:27,619 [1    ] Abp.Localization.LocalizationManager     - Initializing 3 localization sources.
+DEBUG 2015-11-10 14:48:27,644 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: Abp
+DEBUG 2015-11-10 14:48:27,716 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: FileDrop
+DEBUG 2015-11-10 14:48:27,717 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: AbpWeb
+DEBUG 2015-11-10 14:48:30,867 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Found 0 classes defines auto mapping attributes
+DEBUG 2015-11-10 14:48:31,547 [1    ] Default                                  - Dynamic web api controller is created for type 'FileDrop.Interfaces.IFileService' with service name 'app/file'.
+DEBUG 2015-11-10 15:38:31,257 [1    ] Abp.Modules.AbpModuleManager             - Loading Abp modules...
+DEBUG 2015-11-10 15:38:35,601 [1    ] Abp.Modules.AbpModuleManager             - Found 12 ABP modules in total.
+DEBUG 2015-11-10 15:38:35,608 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AutoMapper.AbpAutoMapperModule, Abp.AutoMapper, Version=0.7.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 15:38:35,612 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AbpKernelModule, Abp, Version=0.7.3.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 15:38:35,613 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.EntityFramework.AbpEntityFrameworkModule, Abp.EntityFramework, Version=0.7.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 15:38:35,613 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.WebApi.AbpWebApiModule, Abp.Web.Api, Version=0.7.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 15:38:35,613 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Web.AbpWebModule, Abp.Web, Version=0.7.3.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 15:38:35,614 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Web.Mvc.AbpWebMvcModule, Abp.Web.Mvc, Version=0.7.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 15:38:35,645 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.AbpZeroCoreModule, Abp.Zero, Version=0.7.4.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 15:38:35,645 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.FileDropApplicationModule, FileDrop.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 15:38:35,646 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.FileDropCoreModule, FileDrop.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 15:38:35,646 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.FileDropDataModule, FileDrop.EntityFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 15:38:35,646 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.Web.FileDropWebModule, FileDrop.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 15:38:35,647 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.FileDropWebApiModule, FileDrop.WebApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 15:38:35,654 [1    ] Abp.Modules.AbpModuleManager             - 12 modules loaded.
+DEBUG 2015-11-10 15:59:56,141 [1    ] Abp.Modules.AbpModuleManager             - Loading Abp modules...
+DEBUG 2015-11-10 16:00:05,551 [1    ] Abp.Modules.AbpModuleManager             - Found 12 ABP modules in total.
+DEBUG 2015-11-10 16:00:05,560 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AutoMapper.AbpAutoMapperModule, Abp.AutoMapper, Version=0.7.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 16:00:05,565 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AbpKernelModule, Abp, Version=0.7.3.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 16:00:05,566 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.EntityFramework.AbpEntityFrameworkModule, Abp.EntityFramework, Version=0.7.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 16:00:05,566 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.WebApi.AbpWebApiModule, Abp.Web.Api, Version=0.7.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 16:00:05,567 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Web.AbpWebModule, Abp.Web, Version=0.7.3.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 16:00:05,567 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Web.Mvc.AbpWebMvcModule, Abp.Web.Mvc, Version=0.7.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 16:00:05,567 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.AbpZeroCoreModule, Abp.Zero, Version=0.7.4.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 16:00:05,568 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.FileDropApplicationModule, FileDrop.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 16:00:05,568 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.FileDropCoreModule, FileDrop.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 16:00:05,569 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.FileDropDataModule, FileDrop.EntityFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 16:00:05,569 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.Web.FileDropWebModule, FileDrop.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 16:00:05,569 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.FileDropWebApiModule, FileDrop.WebApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-10 16:00:05,582 [1    ] Abp.Modules.AbpModuleManager             - 12 modules loaded.
+DEBUG 2015-11-11 00:54:06,247 [1    ] Abp.Modules.AbpModuleManager             - Loading Abp modules...
+DEBUG 2015-11-11 00:54:10,275 [1    ] Abp.Modules.AbpModuleManager             - Found 12 ABP modules in total.
+DEBUG 2015-11-11 00:54:10,283 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AutoMapper.AbpAutoMapperModule, Abp.AutoMapper, Version=0.7.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 00:54:10,287 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AbpKernelModule, Abp, Version=0.7.3.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 00:54:10,288 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.EntityFramework.AbpEntityFrameworkModule, Abp.EntityFramework, Version=0.7.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 00:54:10,288 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.WebApi.AbpWebApiModule, Abp.Web.Api, Version=0.7.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 00:54:10,288 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Web.AbpWebModule, Abp.Web, Version=0.7.3.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 00:54:10,289 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Web.Mvc.AbpWebMvcModule, Abp.Web.Mvc, Version=0.7.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 00:54:10,289 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.AbpZeroCoreModule, Abp.Zero, Version=0.7.4.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 00:54:10,289 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.FileDropApplicationModule, FileDrop.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 00:54:10,290 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.FileDropCoreModule, FileDrop.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 00:54:10,290 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.FileDropDataModule, FileDrop.EntityFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 00:54:10,290 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.Web.FileDropWebModule, FileDrop.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 00:54:10,290 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.FileDropWebApiModule, FileDrop.WebApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 00:54:10,298 [1    ] Abp.Modules.AbpModuleManager             - 12 modules loaded.
+DEBUG 2015-11-11 01:30:09,842 [1    ] Abp.Modules.AbpModuleManager             - Loading Abp modules...
+DEBUG 2015-11-11 01:30:14,384 [1    ] Abp.Modules.AbpModuleManager             - Found 12 ABP modules in total.
+DEBUG 2015-11-11 01:30:14,391 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AutoMapper.AbpAutoMapperModule, Abp.AutoMapper, Version=0.7.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 01:30:14,395 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AbpKernelModule, Abp, Version=0.7.3.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 01:30:14,396 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.EntityFramework.AbpEntityFrameworkModule, Abp.EntityFramework, Version=0.7.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 01:30:14,396 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.WebApi.AbpWebApiModule, Abp.Web.Api, Version=0.7.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 01:30:14,396 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Web.AbpWebModule, Abp.Web, Version=0.7.3.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 01:30:14,397 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Web.Mvc.AbpWebMvcModule, Abp.Web.Mvc, Version=0.7.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 01:30:14,397 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.AbpZeroCoreModule, Abp.Zero, Version=0.7.4.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 01:30:14,397 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.FileDropApplicationModule, FileDrop.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 01:30:14,397 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.FileDropCoreModule, FileDrop.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 01:30:14,398 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.FileDropDataModule, FileDrop.EntityFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 01:30:14,398 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.Web.FileDropWebModule, FileDrop.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 01:30:14,398 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: FileDrop.FileDropWebApiModule, FileDrop.WebApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-11-11 01:30:14,406 [1    ] Abp.Modules.AbpModuleManager             - 12 modules loaded.

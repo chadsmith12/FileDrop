@@ -28,9 +28,9 @@ namespace FileDrop.Web.Controllers
 
         #region Public Methods
 
-        public PartialViewResult GetAllFiles()
+        public PartialViewResult GetAllFiles(string searchTerm)
         {
-            var files = _fileService.GetAllFiles();
+            var files = _fileService.GetAllFiles(searchTerm);
             var model = new FilesViewModel {Files = files.ToList()};
 
             return PartialView("_FilesTable", model);
@@ -38,7 +38,7 @@ namespace FileDrop.Web.Controllers
 
         public ActionResult Index()
         {
-            var files = _fileService.GetAllFiles();
+            var files = _fileService.GetAllFiles(string.Empty);
             var model = new FilesViewModel {Files = files.ToList()};
 
             return View(model);

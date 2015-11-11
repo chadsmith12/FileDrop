@@ -33,8 +33,10 @@ function saveFile(fileId, fileName, resourceUrl) {
 // reloadFilesTable - reloads the files table from the server
 // resourceUrl - the url to get the data
 // selector - the part of the dom to update
-function reloadFileTable(resourceUrl, selector) {
-    selector.load(resourceUrl, function(data) {
+// options(optional) - object that is send to the server when reloading the table
+function reloadFileTable(resourceUrl, selector, options) {
+    var parameters = options || {};
+    selector.load(resourceUrl, parameters, function(data) {
         abp.notify.success("Files successfully uploaded");
     });
 }
@@ -74,6 +76,16 @@ $(document).ready(function () {
         } else {
             $(editBtn).hide();
             cellObject.parent().removeClass("active");
+        }
+    });
+
+    // table search
+    $("#fileSearch").on("change", function(e) {
+        var searchTerm = $(this).val();
+        var resourceUrl = $("#filesTable").data("resourceurl");
+
+        if (searchTerm.length > 3) {
+            reloadFileTable(resourceUrl, $("#filesTable"), { searchTerm: searchTerm });
         }
     });
 

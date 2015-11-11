@@ -21,10 +21,11 @@
     <div class="panel-heading">
         <h3 class="panel-title">
             Files
+            <span class="pull-right"><input id="fileSearch" class="form-control-static" placeholder="Search" /></span>
         </h3>
     </div>
     <div class="panel-body">
-        <div id="filesDiv" class="table-body">
+        <div id="filesDiv" class="table-body" style="height: 400px; overflow: auto">
             @Html.Partial("_FilesTable", Model)
         </div>
     </div>

@@ -100,6 +100,21 @@
             Reference to the logger to write logs.
             </summary>
         </member>
+        <member name="T:Abp.Dependency.SingletonDependency`1">
+            <summary>
+            Used to get a singleton of any class which can be resolved using <see cref="P:Abp.Dependency.IocManager.Instance"/>.
+            Important: Use classes by injecting wherever possible. This class is for cases that's not possible.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Abp.Dependency.SingletonDependency`1.Instance">
+            <summary>
+            Gets the instance.
+            </summary>
+            <value>
+            The instance.
+            </value>
+        </member>
         <member name="T:Abp.Application.Features.Feature">
             <summary>
             Defines a feature of the application. A <see cref="T:Abp.Application.Features.Feature"/> can be used in a multi-tenant application
@@ -581,6 +596,36 @@
             Gets a localized string in specified language.
             </summary>
             <returns>Localized string</returns>
+        </member>
+        <member name="M:Abp.Localization.LocalizationManagerExtensions.GetString(Abp.Localization.ILocalizationManager,System.String,System.String)">
+            <summary>
+            Gets a localized string in current language.
+            </summary>
+            <param name="localizationManager">Localization manager instance</param>
+            <param name="sourceName">Name of the localization source</param>
+            <param name="name">Key name to get localized string</param>
+            <returns>Localized string</returns>
+        </member>
+        <member name="M:Abp.Localization.LocalizationManagerExtensions.GetString(Abp.Localization.ILocalizationManager,System.String,System.String,System.Globalization.CultureInfo)">
+            <summary>
+            Gets a localized string in specified language.
+            </summary>
+            <param name="localizationManager">Localization manager instance</param>
+            <param name="sourceName">Name of the localization source</param>
+            <param name="name">Key name to get localized string</param>
+            <param name="culture">culture</param>
+            <returns>Localized string</returns>
+        </member>
+        <member name="T:Abp.Configuration.SettingProvider">
+            <summary>
+            Inherit this class to define settings for a module/application.
+            </summary>
+        </member>
+        <member name="M:Abp.Configuration.SettingProvider.GetSettingDefinitions(Abp.Configuration.SettingDefinitionProviderContext)">
+            <summary>
+            Gets all setting definitions provided by this provider.
+            </summary>
+            <returns>List of settings</returns>
         </member>
         <member name="T:Abp.Runtime.Caching.AbpCacheNames">
             <summary>
@@ -2281,6 +2326,7 @@
         <member name="M:Abp.Localization.Sources.ILocalizationSource.GetString(System.String)">
             <summary>
             Gets localized string for given name in current language.
+            Fallbacks to default language if not found in current culture.
             </summary>
             <param name="name">Key name</param>
             <returns>Localized string</returns>
@@ -2288,20 +2334,51 @@
         <member name="M:Abp.Localization.Sources.ILocalizationSource.GetString(System.String,System.Globalization.CultureInfo)">
             <summary>
             Gets localized string for given name and specified culture.
+            Fallbacks to default language if not found in given culture.
             </summary>
             <param name="name">Key name</param>
             <param name="culture">culture information</param>
             <returns>Localized string</returns>
         </member>
-        <member name="M:Abp.Localization.Sources.ILocalizationSource.GetAllStrings">
+        <member name="M:Abp.Localization.Sources.ILocalizationSource.GetStringOrNull(System.String,System.Boolean)">
+            <summary>
+            Gets localized string for given name in current language.
+            Returns null if not found.
+            </summary>
+            <param name="name">Key name</param>
+            <param name="tryDefaults">
+            True: Fallbacks to default language if not found in current culture.
+            </param>
+            <returns>Localized string</returns>
+        </member>
+        <member name="M:Abp.Localization.Sources.ILocalizationSource.GetStringOrNull(System.String,System.Globalization.CultureInfo,System.Boolean)">
+            <summary>
+            Gets localized string for given name and specified culture.
+            Returns null if not found.
+            </summary>
+            <param name="name">Key name</param>
+            <param name="culture">culture information</param>
+            <param name="tryDefaults">
+            True: Fallbacks to default language if not found in current culture.
+            </param>
+            <returns>Localized string</returns>
+        </member>
+        <member name="M:Abp.Localization.Sources.ILocalizationSource.GetAllStrings(System.Boolean)">
             <summary>
             Gets all strings in current language.
             </summary>
+            <param name="includeDefaults">
+            True: Fallbacks to default language texts if not found in current culture.
+            </param>
         </member>
-        <member name="M:Abp.Localization.Sources.ILocalizationSource.GetAllStrings(System.Globalization.CultureInfo)">
+        <member name="M:Abp.Localization.Sources.ILocalizationSource.GetAllStrings(System.Globalization.CultureInfo,System.Boolean)">
             <summary>
             Gets all strings in specified culture.
             </summary>
+            <param name="culture">culture information</param>
+            <param name="includeDefaults">
+            True: Fallbacks to default language texts if not found in current culture.
+            </param>
         </member>
         <member name="P:Abp.Localization.Sources.ILocalizationSource.Name">
             <summary>
@@ -2313,6 +2390,11 @@
             Extends the source with given dictionary.
             </summary>
             <param name="dictionary">Dictionary to extend the source</param>
+        </member>
+        <member name="P:Abp.Localization.Dictionaries.IDictionaryBasedLocalizationSource.DictionaryProvider">
+            <summary>
+            Gets the dictionary provider.
+            </summary>
         </member>
         <member name="T:Abp.Timing.Clock">
             <summary>
@@ -2671,7 +2753,7 @@
             <param name="isGrantedByDefault">Is this permission granted by default. Default value: false.</param>
             <param name="description">A brief description for this permission</param>
             <param name="multiTenancySides">Which side can use this permission</param>
-            <param name="dependedFeature">Depended feature(s) of this permission</param>
+            <param name="featureDependency">Depended feature(s) of this permission</param>
             <returns>New created permission</returns>
         </member>
         <member name="M:Abp.Authorization.IPermissionDefinitionContext.GetPermissionOrNull(System.String)">
@@ -2962,7 +3044,7 @@
             <param name="isGrantedByDefault">Is this permission granted by default. Default value: false.</param>
             <param name="description">A brief description for this permission</param>
             <param name="multiTenancySides">Which side can use this permission</param>
-            <param name="dependedFeature">Depended feature(s) of this permission</param>
+            <param name="featureDependency">Depended feature(s) of this permission</param>
         </member>
         <member name="M:Abp.Authorization.Permission.CreateChildPermission(System.String,Abp.Localization.ILocalizableString,System.Boolean,Abp.Localization.ILocalizableString,Abp.MultiTenancy.MultiTenancySides,Abp.Application.Features.IFeatureDependency)">
             <summary>
@@ -3005,7 +3087,7 @@
             Which side can use this permission.
             </summary>
         </member>
-        <member name="P:Abp.Authorization.Permission.DependedFeature">
+        <member name="P:Abp.Authorization.Permission.FeatureDependency">
             <summary>
             Depended feature(s) of this permission.
             </summary>
@@ -4739,17 +4821,6 @@
             <see cref="T:Abp.Net.Mail.EmailSettingNames"/> for all available configurations.
             </summary>
         </member>
-        <member name="T:Abp.Configuration.SettingProvider">
-            <summary>
-            Inherit this class to define settings for a module/application.
-            </summary>
-        </member>
-        <member name="M:Abp.Configuration.SettingProvider.GetSettingDefinitions(Abp.Configuration.SettingDefinitionProviderContext)">
-            <summary>
-            Gets all setting definitions provided by this provider.
-            </summary>
-            <returns>List of settings</returns>
-        </member>
         <member name="T:Abp.Net.Mail.EmailSenderConfiguration">
             <summary>
             Implementation of <see cref="T:Abp.Net.Mail.IEmailSenderConfiguration"/> that reads settings
@@ -5853,23 +5924,6 @@
             </summary>
             <returns>List of sources</returns>
         </member>
-        <member name="M:Abp.Localization.ILocalizationManager.GetString(System.String,System.String)">
-            <summary>
-            Gets a localized string in current language.
-            </summary>
-            <param name="sourceName">Name of the localization source</param>
-            <param name="name">Key name to get localized string</param>
-            <returns>Localized string</returns>
-        </member>
-        <member name="M:Abp.Localization.ILocalizationManager.GetString(System.String,System.String,System.Globalization.CultureInfo)">
-            <summary>
-            Gets a localized string in specified language.
-            </summary>
-            <param name="sourceName">Name of the localization source</param>
-            <param name="name">Key name to get localized string</param>
-            <param name="culture">culture</param>
-            <returns>Localized string</returns>
-        </member>
         <member name="P:Abp.Localization.ILocalizationManager.CurrentLanguage">
             <summary>
             Gets current language for the application.
@@ -6638,8 +6692,8 @@
         </member>
         <member name="T:Abp.Logging.LogHelper">
             <summary>
-            This class can be used to write logs from somewhere where it's a little hard to get a reference to the <see cref="T:Castle.Core.Logging.ILogger"/>.
-            Normally, get <see cref="T:Castle.Core.Logging.ILogger"/> using property injection.
+            This class can be used to write logs from somewhere where it's a hard to get a reference to the <see cref="T:Castle.Core.Logging.ILogger"/>.
+            Normally, use <see cref="T:Castle.Core.Logging.ILogger"/> with property injection wherever it's possible.
             </summary>
         </member>
         <member name="P:Abp.Logging.LogHelper.Logger">
@@ -8241,27 +8295,12 @@
             This method is called by ABP before first usage.
             </summary>
         </member>
-        <member name="M:Abp.Localization.Sources.Resource.ResourceFileLocalizationSource.GetString(System.String)">
-            <summary>
-            Gets localized string for given name in current language.
-            </summary>
-            <param name="name">Name</param>
-            <returns>Localized string</returns>
-        </member>
-        <member name="M:Abp.Localization.Sources.Resource.ResourceFileLocalizationSource.GetString(System.String,System.Globalization.CultureInfo)">
-            <summary>
-            Gets localized string for given name and specified culture.
-            </summary>
-            <param name="name">Key name</param>
-            <param name="culture">culture information</param>
-            <returns>Localized string</returns>
-        </member>
-        <member name="M:Abp.Localization.Sources.Resource.ResourceFileLocalizationSource.GetAllStrings">
+        <member name="M:Abp.Localization.Sources.Resource.ResourceFileLocalizationSource.GetAllStrings(System.Boolean)">
             <summary>
             Gets all strings in current language.
             </summary>
         </member>
-        <member name="M:Abp.Localization.Sources.Resource.ResourceFileLocalizationSource.GetAllStrings(System.Globalization.CultureInfo)">
+        <member name="M:Abp.Localization.Sources.Resource.ResourceFileLocalizationSource.GetAllStrings(System.Globalization.CultureInfo,System.Boolean)">
             <summary>
             Gets all strings in specified culture.
             </summary>
@@ -8302,6 +8341,13 @@
             <param name="name">Key name to get localized string</param>
             <param name="culture">culture</param>
             <returns>Localized string</returns>
+        </member>
+        <member name="P:Abp.Localization.LocalizationHelper.Manager">
+            <summary>
+            Gets a reference to the localization manager.
+            Inject and use <see cref="T:Abp.Localization.ILocalizationManager"/>
+            wherever it's possible, instead of this shortcut.
+            </summary>
         </member>
         <member name="M:Abp.Localization.LocalizationManager.#ctor(Abp.Localization.ILanguageManager,Abp.Configuration.Startup.ILocalizationConfiguration,Abp.Dependency.IIocResolver)">
             <summary>
@@ -8348,10 +8394,10 @@
         <member name="M:Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource.GetString(System.String,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource.GetAllStrings">
+        <member name="M:Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource.GetAllStrings(System.Boolean)">
             <inheritdoc/>
         </member>
-        <member name="M:Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource.GetAllStrings(System.Globalization.CultureInfo)">
+        <member name="M:Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource.GetAllStrings(System.Globalization.CultureInfo,System.Boolean)">
             <inheritdoc/>
         </member>
         <member name="M:Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource.Extend(Abp.Localization.Dictionaries.ILocalizationDictionary)">

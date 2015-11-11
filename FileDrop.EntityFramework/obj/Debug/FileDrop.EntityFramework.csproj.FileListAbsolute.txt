@@ -30,9 +30,9 @@ C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debu
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\System.Collections.Immutable.xml
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debug\FileDrop.EntityFramework.csprojResolveAssemblyReference.cache
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debug\FileDrop.Migrations.InitialMigration.resources
-C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debug\FileDrop.EntityFramework.csproj.GenerateResource.Cache
-C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debug\FileDrop.EntityFramework.dll
-C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debug\FileDrop.EntityFramework.pdb
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debug\FileDrop.Migrations.FixedNameOfUploadDateTime.resources
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debug\FileDrop.Migrations.AddedFilePathToFile.resources
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debug\FileDrop.Migrations.AddedIsImageToFile.resources
+C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debug\FileDrop.EntityFramework.csproj.GenerateResource.Cache
+C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debug\FileDrop.EntityFramework.dll
+C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debug\FileDrop.EntityFramework.pdb

@@ -19,6 +19,6 @@ C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Core\bin\Debug\Nito.Asyn
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Core\bin\Debug\Nito.AsyncEx.Concurrent.xml
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Core\bin\Debug\Nito.AsyncEx.Enlightenment.xml
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Core\bin\Debug\System.Collections.Immutable.xml
+C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Core\obj\Debug\FileDrop.Core.csprojResolveAssemblyReference.cache
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Core\obj\Debug\FileDrop.Core.dll
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Core\obj\Debug\FileDrop.Core.pdb
-C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Core\obj\Debug\FileDrop.Core.csprojResolveAssemblyReference.cache
