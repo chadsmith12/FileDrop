@@ -3,6 +3,8 @@ C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debu
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\FileDrop.EntityFramework.pdb
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\Abp.dll
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\Abp.EntityFramework.dll
+C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\Abp.Zero.dll
+C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\Abp.Zero.EntityFramework.dll
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\Castle.Core.dll
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\Castle.Facilities.Logging.dll
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\Castle.Windsor.dll
@@ -10,6 +12,7 @@ C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debu
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\EntityFramework.DynamicFilters.dll
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\FileDrop.Core.dll
+C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\Microsoft.AspNet.Identity.Core.dll
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\Newtonsoft.Json.dll
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\Nito.AsyncEx.Concurrent.dll
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\Nito.AsyncEx.dll
@@ -18,11 +21,14 @@ C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debu
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\FileDrop.Core.pdb
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\Abp.xml
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\Abp.EntityFramework.xml
+C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\Abp.Zero.xml
+C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\Abp.Zero.EntityFramework.xml
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\Castle.Core.xml
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\Castle.Facilities.Logging.xml
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\Castle.Windsor.xml
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\EntityFramework.xml
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\Microsoft.AspNet.Identity.Core.xml
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\Newtonsoft.Json.xml
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\Nito.AsyncEx.xml
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\bin\Debug\Nito.AsyncEx.Concurrent.xml
@@ -33,6 +39,7 @@ C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debu
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debug\FileDrop.Migrations.FixedNameOfUploadDateTime.resources
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debug\FileDrop.Migrations.AddedFilePathToFile.resources
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debug\FileDrop.Migrations.AddedIsImageToFile.resources
+C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debug\FileDrop.Migrations.AddedAbpZero.resources
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debug\FileDrop.EntityFramework.csproj.GenerateResource.Cache
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debug\FileDrop.EntityFramework.dll
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debug\FileDrop.EntityFramework.pdb

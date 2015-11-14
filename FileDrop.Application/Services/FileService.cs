@@ -19,16 +19,23 @@ namespace FileDrop.Services
             _fileRepository = fileRepository;
         }
 
-        public ICollection<File> GetAllFiles(string searchTerm)
+        public ICollection<File> GetAllFiles(string searchTerm, bool filter)
         {
             var files = _fileRepository.GetAll();
 
-            // no search term, just return all the files
-            if (searchTerm.IsNullOrWhiteSpace())
+            // no search term and filter, just return all the files
+            if (searchTerm.IsNullOrWhiteSpace() && !filter)
                 return files.ToList();
+            if (searchTerm.IsNullOrWhiteSpace() && filter)
+                return files.Where(x => x.IsImage).ToList();
 
-            // search term, limit it to the search, then return the files
-            files = files.Where(x => x.FileName.Contains(searchTerm));
+            // search term, limit it to the search
+            if (filter)
+            {
+                files = files.Where(x => x.FileName.Contains(searchTerm) && x.IsImage);
+                return files.ToList();
+            }
+            files = files.Where(x => x.FileName.Contains(searchTerm) && x.IsImage == filter);
             return files.ToList();
         }
 

@@ -1,4 +1,5 @@
 using System.Data.Entity.Migrations;
+using EntityFramework.DynamicFilters;
 
 namespace FileDrop.Migrations
 {
@@ -12,8 +13,8 @@ namespace FileDrop.Migrations
 
         protected override void Seed(FileDrop.EntityFramework.FileDropDbContext context)
         {
-            // This method will be called every time after migrating to the latest version.
-            // You can add any seed data here...
+            context.DisableAllFilters();
+            new DefaultTenantRoleAndUserBuilder(context).Build();
         }
     }
 }

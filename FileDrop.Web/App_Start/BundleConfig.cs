@@ -19,6 +19,7 @@ namespace FileDrop.Web
                     .Include("~/Scripts/sweetalert/sweet-alert.css")
                     .Include("~/Content/flags/famfamfam-flags.css", new CssRewriteUrlTransform())
                     .Include("~/Content/font-awesome.min.css", new CssRewriteUrlTransform())
+                    .Include("~/Content/selectric.css")
                 );
 
             //~/Bundles/vendor/js/top (These scripts should be included in the head of the page)
@@ -40,6 +41,8 @@ namespace FileDrop.Web
                         "~/Scripts/jquery-ui-1.11.4.min.js",
 
                         "~/Scripts/bootstrap.min.js",
+
+                        "~/Scripts/jquery.selectric.min.js",
 
                         "~/Scripts/moment-with-locales.min.js",
                         "~/Scripts/jquery.validate.min.js",

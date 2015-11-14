@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Abp.UI;
@@ -28,9 +30,9 @@ namespace FileDrop.Web.Controllers
 
         #region Public Methods
 
-        public PartialViewResult GetAllFiles(string searchTerm)
+        public PartialViewResult GetAllFiles(string searchTerm, bool filter)
         {
-            var files = _fileService.GetAllFiles(searchTerm);
+            var files = _fileService.GetAllFiles(searchTerm, filter);
             var model = new FilesViewModel {Files = files.ToList()};
 
             return PartialView("_FilesTable", model);
@@ -38,7 +40,7 @@ namespace FileDrop.Web.Controllers
 
         public ActionResult Index()
         {
-            var files = _fileService.GetAllFiles(string.Empty);
+            var files = _fileService.GetAllFiles(string.Empty, false);
             var model = new FilesViewModel {Files = files.ToList()};
 
             return View(model);
@@ -79,7 +81,7 @@ namespace FileDrop.Web.Controllers
                     var fullPath = FileHelpers.GetPath(fileName, Server.MapPath(@"\App_Data\"));
                     var saveFile = new File
                     {
-                        FileName = fileName.Split('.')[0], // don't save the file name with the extension
+                        FileName = fileName, // don't save the file name with the extension
                         FileSize = FileHelpers.BytesToMegaBytes(fileSize),
                         FileType = file.ContentType,
                         FilePath = fullPath,
@@ -123,6 +125,45 @@ namespace FileDrop.Web.Controllers
             Response.ContentType = MimeMapping.GetMimeMapping(file.FilePath);
             Response.AddHeader("Content-Disposition", string.Format("attachment; filename=" + Path.GetFileName(file.FilePath)));
             Response.OutputStream.Write(fileDecrypted, 0, fileDecrypted.Length);
+            Response.Flush();
+        }
+
+        public void DownloadArchive()
+        {
+            var files = _fileService.GetAllFiles(string.Empty, false);
+            var orginalDirectory =
+                        new DirectoryInfo(string.Format("{0}Uploads", Server.MapPath(@"\App_Data\")));
+            var path = Path.Combine(orginalDirectory.ToString(), "archives");
+            var exists = Directory.Exists(path);
+            if (!exists)
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            // get all files ready to be archived
+            foreach (var file in files)
+            {
+                // decrypt the file and write the temp file
+                var data = FileHelpers.ReadAllBytes(file.FilePath);
+                var fileDecrypted = FileHelpers.Decrypt(data, "zxcvbgfdsaqwert54321");
+                var fullPath = string.Format("{0}\\{1}", path, file.FileName);
+                System.IO.File.WriteAllBytes(fullPath, fileDecrypted);
+            }
+
+            // archive the files
+            var archivePath = new DirectoryInfo(string.Format("{0}Archives", Server.MapPath(@"\App_Data\")));
+            exists = Directory.Exists(archivePath.ToString());
+            if (!exists)
+            {
+                Directory.CreateDirectory(archivePath.ToString());
+            }
+            var archive = Path.Combine(archivePath.ToString(), DateTime.Now.Ticks + ".zip");
+            ZipFile.CreateFromDirectory(path, archive, CompressionLevel.Fastest, true);
+
+            var zipData = FileHelpers.ReadAllBytes(archive);
+            Response.ContentType = MimeMapping.GetMimeMapping(archive);
+            Response.AddHeader("Content-Disposition", string.Format("attachment; filename=" + Path.GetFileName(archive)));
+            Response.OutputStream.Write(zipData, 0, zipData.Length);
             Response.Flush();
         }
 

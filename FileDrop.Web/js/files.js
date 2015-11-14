@@ -33,12 +33,27 @@ function saveFile(fileId, fileName, resourceUrl) {
 // reloadFilesTable - reloads the files table from the server
 // resourceUrl - the url to get the data
 // selector - the part of the dom to update
+// showMessage - boolean on if we should show a successful message
 // options(optional) - object that is send to the server when reloading the table
-function reloadFileTable(resourceUrl, selector, options) {
+function reloadFileTable(resourceUrl, selector, showMessage, options) {
     var parameters = options || {};
-    selector.load(resourceUrl, parameters, function(data) {
-        abp.notify.success("Files successfully uploaded");
-    });
+    parameters.filter = document.getElementById("photosFilter").checked;
+    //selector.load(resourceUrl, parameters, function (data) {
+    //    if(showMessage) 
+    //        abp.notify.success("Files successfully uploaded");
+    //});
+
+    abp.ui.setBusy(selector, abp.ajax({
+        url: resourceUrl,
+        data: JSON.stringify(parameters),
+        dataType: "html"
+    }).done(function (data) {
+        if (showMessage) {
+            abp.notify.success("Files successfully uploaded");
+        }
+        selector.empty().html(data);
+    }));
+
 }
 
 $(document).ready(function () {
@@ -57,7 +72,7 @@ $(document).ready(function () {
                     "</div>",
         success: function (data) {
             var resourceUrl = $("#filesTable").data("resourceurl");
-            reloadFileTable(resourceUrl, $("#filesTable"));
+            reloadFileTable(resourceUrl, $("#filesTable"), true);
             this.removeAllFiles();
             $("#progressSection").hide();
             $("#uploadModal").modal("hide");
@@ -80,17 +95,16 @@ $(document).ready(function () {
     });
 
     // table search
-    $("#fileSearch").on("change", function(e) {
+    $("#fileSearch").on("input propertychange paste", function (e) {
         var searchTerm = $(this).val();
         var resourceUrl = $("#filesTable").data("resourceurl");
+        var isChecked = document.getElementById("photosFilter").checked;
 
-        if (searchTerm.length > 3) {
-            reloadFileTable(resourceUrl, $("#filesTable"), { searchTerm: searchTerm });
-        }
+        reloadFileTable(resourceUrl, $("#filesTable"), false, { searchTerm: searchTerm, filter: isChecked });
     });
 
     // click on the edit button to edit a filename
-    $(".editFile").click(function (e) {
+    $("#filesDiv").on("click", ".editFile", function (e) {
         // buttn we clicked on
         var editBtn = $(this);
         var resourceUrl = editBtn.data("url");
@@ -129,23 +143,39 @@ $(document).ready(function () {
     });
 
     // downloading the file
-    $(".downloadFile").click(function (e) {
+    $("#filesDiv").on("click", ".downloadFile", function (e) {
         var downloadBtn = $(this);
         var fileUrl = downloadBtn.data("resourceurl");
 
         window.open(fileUrl);
     });
 
-    $("#uploadFile").click(function (e) {
+    // download archive of all the files
+    $("#downloadArchive").on("click", function(e) {
+        var downloadBtn = $(this);
+        var fileUrl = downloadBtn.data("resourceurl");
+
+        window.open(fileUrl);
+    });
+
+    $("#uploadFile").on("click", function (e) {
         e.preventDefault();
 
         $("#uploadModal").modal("show");
     });
 
-    $(".editImage").click(function (e) {
+    $("#filesDiv").on("click", ".editImage", function (e) {
         var editBtn = $(this);
         var imageUrl = editBtn.data("resourceurl");
 
         window.open(imageUrl);
+    });
+
+    $("#photosFilter").on("change", function(e) {
+        var filter = this.checked;
+        var searchTerm = $("#fileSearch").val();
+        var resourceUrl = $("#filesTable").data("resourceurl");
+
+        reloadFileTable(resourceUrl, $("#filesTable"), false, { searchTerm: searchTerm, filter: filter });
     });
 });

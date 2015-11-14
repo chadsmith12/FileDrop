@@ -13,6 +13,8 @@ C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Application\bin\Debug\Ni
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Application\bin\Debug\Nito.AsyncEx.dll
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Application\bin\Debug\Nito.AsyncEx.Enlightenment.dll
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Application\bin\Debug\System.Collections.Immutable.dll
+C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Application\bin\Debug\Abp.Zero.dll
+C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Application\bin\Debug\Microsoft.AspNet.Identity.Core.dll
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Application\bin\Debug\FileDrop.Core.pdb
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Application\bin\Debug\Abp.xml
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Application\bin\Debug\Abp.AutoMapper.xml
@@ -25,6 +27,8 @@ C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Application\bin\Debug\Ni
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Application\bin\Debug\Nito.AsyncEx.Concurrent.xml
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Application\bin\Debug\Nito.AsyncEx.Enlightenment.xml
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Application\bin\Debug\System.Collections.Immutable.xml
+C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Application\bin\Debug\Abp.Zero.xml
+C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Application\bin\Debug\Microsoft.AspNet.Identity.Core.xml
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Application\obj\Debug\FileDrop.Application.csprojResolveAssemblyReference.cache
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Application\obj\Debug\FileDrop.Application.dll
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Application\obj\Debug\FileDrop.Application.pdb

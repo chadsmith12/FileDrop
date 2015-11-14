@@ -214,3 +214,8 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+*.zip
+FileDrop.Web/App_Data/Uploads/archives/20150411_220605
+FileDrop.Web/App_Data/Uploads/archives/SnowLeopard
+FileDrop.Web/App_Data/Uploads/uploadpath/SnowLeopard.jpg
+FileDrop.Web/App_Data/Uploads/uploadpath/20150411_220605.jpg

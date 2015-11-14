@@ -9,11 +9,14 @@
 
 <h2>
     Files
-    <button id="uploadFile" class="btn btn-lg btn-link" data-toggle="tooltip" data-placement="top" title="Upload Files">
-        <i class="fa fa-cloud-upload"></i>
+    <button id="uploadFile" class="btn btn-link" data-toggle="tooltip" data-placement="top" title="Upload Files">
+        <i class="fa fa-cloud-upload fa-lg"></i>
     </button>
-
+    <button id="downloadArchive" class="btn btn-link" data-toggle="tooltip" data-placement="top" title="Download Archive" data-resourceurl="@Url.Action("DownloadArchive", "File")">
+        <i class="fa fa-file-archive-o fa-lg"></i>
+    </button>
 </h2>
+<input id="photosFilter" type="checkbox" /><label for="photosFilter">Photos</label>
 
 
 <p></p>
@@ -21,7 +24,7 @@
     <div class="panel-heading">
         <h3 class="panel-title">
             Files
-            <span class="pull-right"><input id="fileSearch" class="form-control-static" placeholder="Search" /></span>
+            <span class="pull-right"><input id="fileSearch" placeholder="Search" value="" /></span>
         </h3>
     </div>
     <div class="panel-body">
@@ -36,6 +39,5 @@
 @section scripts
 {
     @Scripts.Render("~/Bundles/dropzonejs")
-    @Scripts.Render("~/Bundles/camanjs")
     <script src="~/js/files.js"></script>
 }

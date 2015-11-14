@@ -2,7 +2,7 @@
 
 @if (Model.Files.Count <= 0)
 {
-    <span class="text-center text-muted">No Files Found...</span>
+    <div class="text-center text-muted">No Files Found...</div>
 }
 
 else
@@ -24,7 +24,7 @@ else
                 <tr>
                     <td data-fileid="@item.Id" data-filename="true" class="col-md-6">
                         <span class="editText">@item.FileName</span>
-                        @Html.TextBoxFor(model => item.FileName, new { @class = "form-control", style = "display:none; width: 50%" })
+                        @Html.TextBoxFor(model => item.FileName, new {style = "display:none; width: 50%" })
                         <button data-url="@Url.Action("UpdateFileName", "File")" data-editmode="false" class="btn btn-danger btn-sm pull-right editFile" style="display: none">Edit</button>
                     </td>
                     <td>@item.FileType</td>

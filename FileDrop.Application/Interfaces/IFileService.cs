@@ -11,8 +11,9 @@ namespace FileDrop.Interfaces
         /// Gets all files.
         /// </summary>
         /// <param name="searchTerm">The search term.</param>
+        /// <param name="filter"></param>
         /// <returns></returns>
-        ICollection<File> GetAllFiles(string searchTerm);
+        ICollection<File> GetAllFiles(string searchTerm, bool filter);
 
         /// <summary>
         /// Gets the file by identifier.

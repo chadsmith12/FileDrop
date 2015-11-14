@@ -1,10 +1,11 @@
 ﻿using System.Data.Entity;
 using Abp.EntityFramework;
+using Abp.Zero.EntityFramework;
 using FileDrop.Domains;
 
 namespace FileDrop.EntityFramework
 {
-    public class FileDropDbContext : AbpDbContext
+    public class FileDropDbContext : AbpZeroDbContext<Tenant, Role, User>
     {
         //TODO: Define an IDbSet for each Entity...
         public virtual IDbSet<File> Files { get; set; } 
