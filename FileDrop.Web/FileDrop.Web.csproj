@@ -308,6 +308,7 @@
     <Content Include="css\main.min.css">
       <DependentUpon>main.css</DependentUpon>
     </Content>
+    <Content Include="css\select2-bootstrap-theme.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="images\abp-logo.png" />
@@ -409,6 +410,7 @@
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Helpers\FileHelpers.cs" />
+    <Compile Include="Models\DownloadImageViewModel.cs" />
     <Compile Include="Models\FilesViewModel.cs" />
     <Compile Include="Models\ImageEditorViewModel.cs" />
     <Compile Include="Models\Layout\LanguageSelectionViewModel.cs" />
@@ -434,6 +436,11 @@
     <Content Include="Views\Shared\_FilesTable.cshtml" />
     <Content Include="Views\Shared\_FileUploadModal.cshtml" />
     <Content Include="Views\File\ImageEditor.cshtml" />
+    <Content Include="Views\Shared\_ColorEditor.cshtml" />
+    <Content Include="Views\Shared\_FilterEditor.cshtml" />
+    <Content Include="Scripts\sweetalert\sweet-alert.min.js.map">
+      <DependentUpon>sweet-alert.min.js</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -459,7 +466,9 @@
       <Name>FileDrop.WebApi</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Scripts\sweetalert-dist\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

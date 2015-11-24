@@ -41,6 +41,8 @@ namespace FileDrop.Services
 
         public File GetFileById(int id)
         {
+            if(id == 0) return new File();
+
             var file = _fileRepository.Get(id);
             return file;
         }

@@ -13,53 +13,27 @@
         </h3>
     </div>
 
-    <!-- Nav Tabs-->
+    <!-- Nav Tabs -->
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#sliders" aria-controls="image sliders" role="tab" data-toggle="tab">Image Sliders</a></li>
+        <li role="presentation"><a href="#imageDetails" aria-controls="image details" role="tab" data-toggle="tab">Image</a></li>
+        <li role="presentation" class="active"><a href="#colors" aria-controls="image colors" role="tab" data-toggle="tab">Colors</a></li>
         <li role="presentation"><a href="#filters" aria-controls="image filters" role="tab" data-toggle="tab">Filters</a></li>
     </ul>
     <div class="table-body tab-content">
         <div class="row">
             <div class="col-md-4 col-sm-4 col-xs-6">
                 <div id="editingTools" class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="sliders">
-                        <div class="form-group">
-                            <label id="brightnessLabel" for="brightnessSlider">Brightness</label>
-                            <input id="brightnessSlider" type="range" min="-100" max="100" value="0" step="1" data-filter="brightness"/>
-                        </div>
-                        <div class="form-group">
-                            <label id="contrastLabel" for="contrastSlider">Contrast</label>
-                            <input id="contrastSlider" type="range" min="-100" max="100" value="0" step="1" data-filter="contrast"/>
-                        </div>
-                        <div class="form-group">
-                            <label id="hueLabel" for="hueSlider">Hue</label>
-                            <input id="hueSlider" type="range" min="0" max="300" value="0" step="1" data-filter="hue"/>
-                        </div>
-                        <div class="form-group">
-                            <label id="vibranceLabel" for="vibranceSlider">Vibrance</label>
-                            <input id="vibranceSlider" type="range" min="0" max="400" value="0" step="1" data-filter="vibrance"/>
-                        </div>
-                        <div class="form-group">
-                            <label id="sepiaLabel" for="sepiaSlider">Sepia</label>
-                            <input id="sepiaSlider" type="range" min="0" max="100" value="0" step="1" data-filter="sepia"/>
-                        </div>
-                        <div class="form-group">
-                            <label id="gammaLabel" for="gammaSlider">Gamma</label>
-                            <input id="gammaSlider" type="range" min="1.0" max="5" value="1.0" step="0.1" data-filter="gamma"/>
-                        </div>
-                        <div class="form-group">
-                            <label id="exposureLabel" for="exposureSlider">Exposure</label>
-                            <input id="exposureSlider" type="range" min="-100" max="100" value="0" step="1" data-filter="exposure"/>
-                        </div>
+                    <div role="tabpanel" class="tab-pane active" id="colors">
+                        @Html.Partial("_ColorEditor")
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="filters">
-                        <span>Filters...</span>
+                        @Html.Partial("_FilterEditor")
                     </div>
 
                     <div class="form-group">
-                        <button class="btn btn-primary btn-xs">Save</button>
-                        <button class="btn btn-info btn-xs">Download</button>
+                        <button data-fileId="@Model.File.Id" id="save" class="btn btn-primary btn-xs" data-resourceurl="@Url.Action("SaveEditedImage","File")">Save</button>
+                        <a id="download" class="btn btn-info btn-xs">Download</a>
                         <button id="reset" class="btn btn-danger btn-xs">Reset</button>
                     </div>
                 </div>
@@ -67,7 +41,7 @@
 
             <div class="col-md-8 col-sm-8 col-xs-6">
                 <div id="imageEditor" class="table-body" >
-                    <img id="editImage" src="@Model.DataUrl" class="img-responsive" />
+                    <img data-fileId="@Model.File.Id" id="editImage" src="@Model.DataUrl" class="img-responsive" />
                 </div>
             </div>
         </div>

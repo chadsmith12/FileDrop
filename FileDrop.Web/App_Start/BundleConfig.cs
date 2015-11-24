@@ -16,7 +16,7 @@ namespace FileDrop.Web
                     .Include("~/Content/themes/base/all.css", new CssRewriteUrlTransform())
                     .Include("~/Content/bootstrap-cosmo.min.css", new CssRewriteUrlTransform())
                     .Include("~/Content/toastr.min.css")
-                    .Include("~/Scripts/sweetalert/sweet-alert.css")
+                    .Include("~/Scripts/sweetalert-dist/sweetalert.css")
                     .Include("~/Content/flags/famfamfam-flags.css", new CssRewriteUrlTransform())
                     .Include("~/Content/font-awesome.min.css", new CssRewriteUrlTransform())
                     .Include("~/Content/selectric.css")
@@ -48,7 +48,7 @@ namespace FileDrop.Web
                         "~/Scripts/jquery.validate.min.js",
                         "~/Scripts/jquery.blockUI.js",
                         "~/Scripts/toastr.min.js",
-                        "~/Scripts/sweetalert/sweet-alert.min.js",
+                        "~/Scripts/sweetalert-dist/sweetalert.min.js",
                         "~/Scripts/others/spinjs/spin.js",
                         "~/Scripts/others/spinjs/jquery.spin.js",
 

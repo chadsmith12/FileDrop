@@ -2,6 +2,7 @@
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -102,6 +103,48 @@ namespace FileDrop.Web.Controllers
 
             return Json(new {message = fileName});
 
+        }
+
+        [HttpPost]
+        public ActionResult SaveEditedImage(ImageEditorViewModel imageEditorViewModel)
+        {
+            var file = _fileService.GetFileById(imageEditorViewModel.FileId);
+            // make a regular expression to get the type and image data quickly
+            var imageRegex = Regex.Match(imageEditorViewModel.DataUrl, @"data:image/(?<type>.+?),(?<data>.+)");
+            var imageType = imageRegex.Groups["type"].Value.Split(';')[0];
+            var base64Data = imageRegex.Groups["data"].Value;
+            var binaryData = Convert.FromBase64String(base64Data);
+            var size = binaryData.Length;
+            string path;
+
+            // saving as a new file
+            if (file.Id == 0)
+            {
+                imageEditorViewModel.FileName += "." + imageType;
+                path = FileHelpers.GetPath(imageEditorViewModel.FileName, Server.MapPath(@"\App_Data\"));
+            }
+            else
+            {
+                path = file.FilePath;
+            }
+
+            FileHelpers.EncryptFileToDisk(binaryData, path, "zxcvbgfdsaqwert54321");
+
+            // go ahead and return if we are not making a new file
+            if (file.Id != 0) return Json(new {fileName = file.FileName});
+
+            var newFile = new File
+            {
+                FileName = imageEditorViewModel.FileName,
+                FilePath = path,
+                FileSize = FileHelpers.BytesToMegaBytes(size),
+                UploadDateTime = DateTime.Now,
+                FileType = "image/" + imageType,
+                IsImage = true
+            };
+
+            _fileService.SaveFile(newFile);
+            return Json(new {fileName = imageEditorViewModel.FileName});
         }
 
         public ActionResult EditImage(int id)
