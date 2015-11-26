@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace FileDrop.Web.Helpers
@@ -36,6 +37,18 @@ namespace FileDrop.Web.Helpers
             using (var encryptor = algorithm.CreateEncryptor(derivedBytes.GetBytes(32), derivedBytes.GetBytes(16)))
             {
                 return DoCrypto(encryptor, data);
+            }
+        }
+
+        public static async Task<byte[]> EncryptAsync(byte[] data, string key)
+        {
+            var salt = new byte[] { 0x27, 0xbc, 0xf0, 0x00, 0xad, 0xed, 0x7a, 0xee, 0xc5, 0xfe, 0x06, 0xaf, 0x4d, 0x08, 0x22, 0x3d };
+            var derivedBytes = new Rfc2898DeriveBytes(key, salt);
+            var algorithm = new RijndaelManaged();
+
+            using (var encryptor = algorithm.CreateEncryptor(derivedBytes.GetBytes(32), derivedBytes.GetBytes(16)))
+            {
+                return await DoCryptoAsync(encryptor, data);
             }
         }
 
@@ -95,6 +108,22 @@ namespace FileDrop.Web.Helpers
         }
 
         /// <summary>
+        /// Reads all bytes asynchronous.
+        /// </summary>
+        /// <param name="fullPath">The full path.</param>
+        /// <returns></returns>
+        public static async Task<byte[]> ReadAllBytesAsync(string fullPath)
+        {
+            using (var file = new FileStream(fullPath, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, true))
+            {
+                var buffer = new byte[file.Length];
+                await file.ReadAsync(buffer, 0, (int) file.Length);
+
+                return buffer;
+            }
+        }
+
+        /// <summary>
         /// To the data URL.
         /// </summary>
         /// <param name="base64">The base64.</param>
@@ -119,6 +148,19 @@ namespace FileDrop.Web.Helpers
                 using (var cryptoStream = new CryptoStream(memoryStream, cryptoTransform, CryptoStreamMode.Write))
                 {
                     cryptoStream.Write(data, 0, data.Length);
+                    cryptoStream.FlushFinalBlock();
+                    return memoryStream.ToArray();
+                }
+            }
+        }
+
+        private static async Task<byte[]> DoCryptoAsync(ICryptoTransform cryptoTransform, byte[] data)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                using (var cryptoStream = new CryptoStream(memoryStream, cryptoTransform, CryptoStreamMode.Write))
+                {
+                    await cryptoStream.WriteAsync(data, 0, data.Length);
                     cryptoStream.FlushFinalBlock();
                     return memoryStream.ToArray();
                 }

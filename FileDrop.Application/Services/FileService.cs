@@ -7,6 +7,7 @@ using Abp.Domain.Repositories;
 using Abp.Extensions;
 using FileDrop.Domains;
 using FileDrop.Interfaces;
+using System.Data.Entity;
 
 namespace FileDrop.Services
 {
@@ -39,11 +40,33 @@ namespace FileDrop.Services
             return files.ToList();
         }
 
+        public ICollection<File> GetAllFilesForUser(long userId, string searchTerm, bool filter)
+        {
+            var files = _fileRepository.GetAll().Where(x => x.UserId == userId);
+
+            if (searchTerm.IsNullOrWhiteSpace() && !filter)
+                return files.ToList();
+
+            if (searchTerm.IsNullOrWhiteSpace() && filter)
+                return files.Where(x => x.IsImage).ToList();
+
+            return !filter ? files.Where(x => x.FileName.Contains(searchTerm)).ToList() : files.Where(x => x.FileName.Contains(searchTerm) && x.IsImage).ToList();
+        }
+
         public File GetFileById(int id)
         {
             if(id == 0) return new File();
 
             var file = _fileRepository.Get(id);
+            return file;
+        }
+
+        public async Task<File> GetFileByIdAsync(int id)
+        {
+            if (id == 0) return new File();
+
+            var file = await _fileRepository.GetAsync(id);
+
             return file;
         }
 
@@ -56,6 +79,18 @@ namespace FileDrop.Services
             else
             {
                 _fileRepository.Update(file);
+            }
+        }
+
+        public async Task SaveFileAsync(File file)
+        {
+            if (file.Id == 0)
+            {
+                await _fileRepository.InsertAsync(file);
+            }
+            else
+            {
+                await _fileRepository.UpdateAsync(file);
             }
         }
     }
