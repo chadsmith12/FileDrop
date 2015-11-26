@@ -25,3 +25,4 @@ C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Core\bin\Debug\Nito.Asyn
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Core\bin\Debug\System.Collections.Immutable.xml
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Core\obj\Debug\FileDrop.Core.dll
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Core\obj\Debug\FileDrop.Core.pdb
+C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.Core\obj\Debug\FileDrop.Core.csprojResolveAssemblyReference.cache

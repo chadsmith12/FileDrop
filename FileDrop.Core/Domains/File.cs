@@ -50,11 +50,27 @@ namespace FileDrop.Domains
         public virtual bool IsImage { get; set; }
 
         /// <summary>
+        /// Gets or sets the user identifier.
+        /// </summary>
+        /// <value>
+        /// The user identifier.
+        /// </value>
+        public virtual long UserId { get; set; }
+
+        /// <summary>
         /// Gets or sets the upload date time.
         /// </summary>
         /// <value>
         /// The upload date time.
         /// </value>
         public virtual DateTime UploadDateTime { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user.
+        /// </summary>
+        /// <value>
+        /// The user.
+        /// </value>
+        public virtual User User { get; set; }
     }
 }

@@ -18,6 +18,8 @@ function applySliders() {
 }
 
 // function to save the file
+// Url - the url to save the file too
+// file - the raw FormData object to send to the server
 function saveFile(url, file) {
     return $.ajax({
         type: "POST",
@@ -29,15 +31,57 @@ function saveFile(url, file) {
 }
 
 $(document).ready(function () {
-    $("select").select2({
-        theme: "bootstrap"
-    });
+    var $image = $("#editImage");
+    var $imageWidth = $("#imageWidth");
+    var $imageHeight = $("#imageHeight");
+    var image = new Image();
+    image.src = $image.attr("src");
+    var originalImage = image.src;
+
+    // set our image details on load
+    $imageWidth.append(image.width + " px");
+    $imageHeight.append(image.height +  " px");
 
     // get the image ready, turn it into a canvas element so it can be edited
     Caman("#editImage", function () { });
 
+    // apply our sliders when we change them
     $("input[type=range]").on("change", applySliders);
 
+    // applying a filter
+    $("#applyFilter").on("click", function (e) {
+        abp.ui.setBusy("#imageEditor");
+        var selectedValue = $("#filtersList").val();
+
+        switch(selectedValue) {
+            case "clarity":
+                Caman("#editImage", function() {
+                    this.clarity().render();
+                });
+                break;
+            case "crossProcess":
+                Caman("#editImage", function () {
+                    this.crossProcess().render();
+                });
+                break;
+            case "hdr":
+                Caman("#editImage", function() {
+                    this.contrast(10);
+                    this.contrast(10);
+                    this.jarques();
+                    this.render();
+                });
+                break;
+            case "blur":
+                Caman("#editImage", function () {
+                    this.radialBlur().render();
+                });
+                break;
+        }
+        abp.ui.clearBusy("#imageEditor");
+    });
+
+    // reset the image back to the original
     $("#reset").on("click", function() {
         $("input[type=range]").val(0);
 
@@ -129,5 +173,27 @@ $(document).ready(function () {
                 });
             }
         });
+    });
+
+    // want to compare the images
+    $("#beforeAfterModal").on("show.bs.modal", function () {
+        $("#after").hide();
+        $("#before").attr("src", originalImage);
+    });
+
+    // before after click
+    $("#beforeBtn").on("click", function (e) {
+        $("#beforeAfterLabel").text("Before");
+        $("#after").hide();
+        $("#before").show();
+        $("#before").attr("src", originalImage);
+    });
+    $("#afterBtn").on("click", function (e) {
+        var canvas = document.getElementById("editImage");
+        $("#beforeAfterLabel").text("After");
+        var imageData = canvas.toDataURL("image/jpeg", 1);
+        $("#after").show();
+        $("#before").hide();
+        $("#after").attr("src", imageData);
     });
 });

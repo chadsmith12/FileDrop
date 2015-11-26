@@ -128,6 +128,10 @@
     <Compile Include="Migrations\201511110845389_AddedAbpZero.Designer.cs">
       <DependentUpon>201511110845389_AddedAbpZero.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511260929084_AddedUserIdForeignKeyToFiles.cs" />
+    <Compile Include="Migrations\201511260929084_AddedUserIdForeignKeyToFiles.Designer.cs">
+      <DependentUpon>201511260929084_AddedUserIdForeignKeyToFiles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="FileDropDataModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -158,6 +162,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511110845389_AddedAbpZero.resx">
       <DependentUpon>201511110845389_AddedAbpZero.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511260929084_AddedUserIdForeignKeyToFiles.resx">
+      <DependentUpon>201511260929084_AddedUserIdForeignKeyToFiles.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

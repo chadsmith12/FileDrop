@@ -302,6 +302,10 @@
     <Content Include="css\fileupload.min.css">
       <DependentUpon>fileupload.css</DependentUpon>
     </Content>
+    <Content Include="css\login.css" />
+    <Content Include="css\login.min.css">
+      <DependentUpon>login.css</DependentUpon>
+    </Content>
     <Content Include="css\main.css">
       <DependentUpon>main.less</DependentUpon>
     </Content>
@@ -320,7 +324,12 @@
     <Content Include="images\filedrop_blue.jpg" />
     <Content Include="js\files.js" />
     <Content Include="js\image-editor.js" />
+    <Content Include="js\login.js" />
     <Content Include="js\main.js" />
+    <Content Include="js\particles.js" />
+    <Content Include="js\particles.min.js">
+      <DependentUpon>particles.js</DependentUpon>
+    </Content>
     <Content Include="Localization\FileDrop\FileDrop-zh-CN.xml" />
     <Content Include="Localization\FileDrop\FileDrop.tr.xml">
       <SubType>Designer</SubType>
@@ -356,6 +365,9 @@
     <Content Include="css\fileupload.less" />
     <Content Include="css\fileupload.css.map">
       <DependentUpon>fileupload.css</DependentUpon>
+    </Content>
+    <Content Include="js\particles.min.js.map">
+      <DependentUpon>particles.min.js</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -407,6 +419,7 @@
     <Compile Include="App_Start\FileDropSettingProvider.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AboutController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Helpers\FileHelpers.cs" />
@@ -420,6 +433,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Layout\TopMenuViewModel.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\FileDropWebViewPageBase.cs" />
   </ItemGroup>
@@ -441,6 +455,9 @@
     <Content Include="Scripts\sweetalert\sweet-alert.min.js.map">
       <DependentUpon>sweet-alert.min.js</DependentUpon>
     </Content>
+    <Content Include="Views\Shared\_ImageDetails.cshtml" />
+    <Content Include="Views\Shared\_BeforeAfterModal.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

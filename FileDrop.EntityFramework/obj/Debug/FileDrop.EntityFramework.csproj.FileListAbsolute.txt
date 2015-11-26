@@ -43,3 +43,4 @@ C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debu
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debug\FileDrop.EntityFramework.csproj.GenerateResource.Cache
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debug\FileDrop.EntityFramework.dll
 C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debug\FileDrop.EntityFramework.pdb
+C:\Users\twigman08\Documents\Projects\FileDrop\FileDrop.EntityFramework\obj\Debug\FileDrop.Migrations.AddedUserIdForeignKeyToFiles.resources

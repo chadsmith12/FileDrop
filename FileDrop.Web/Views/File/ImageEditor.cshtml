@@ -23,6 +23,10 @@
         <div class="row">
             <div class="col-md-4 col-sm-4 col-xs-6">
                 <div id="editingTools" class="tab-content">
+                    <div role="tabpanel" class="tab-pane" id="imageDetails">
+                        @Html.Partial("_ImageDetails")
+                    </div>
+
                     <div role="tabpanel" class="tab-pane active" id="colors">
                         @Html.Partial("_ColorEditor")
                     </div>
@@ -32,21 +36,27 @@
                     </div>
 
                     <div class="form-group">
-                        <button data-fileId="@Model.File.Id" id="save" class="btn btn-primary btn-xs" data-resourceurl="@Url.Action("SaveEditedImage","File")">Save</button>
+                        <button data-fileId="@Model.File.Id" id="save" class="btn btn-primary btn-xs" data-resourceurl="@Url.Action("SaveEditedImage", "File")">Save</button>
                         <a id="download" class="btn btn-info btn-xs">Download</a>
                         <button id="reset" class="btn btn-danger btn-xs">Reset</button>
+                        <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#beforeAfterModal">
+                            Compare
+                        </button>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-8 col-sm-8 col-xs-6">
-                <div id="imageEditor" class="table-body" >
-                    <img data-fileId="@Model.File.Id" id="editImage" src="@Model.DataUrl" class="img-responsive" />
+                <div id="imageEditor" class="table-body">
+                    <img data-fileId="@Model.File.Id" id="editImage" src="@Model.DataUrl" class="img-responsive"/>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+@Html.Partial("_BeforeAfterModal")
 
 @section scripts
 {

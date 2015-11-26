@@ -11,7 +11,13 @@ namespace FileDrop.Domains
 {
     public class User : AbpUser<Tenant, User>
     {
-
+        /// <summary>
+        /// Gets or sets the files.
+        /// </summary>
+        /// <value>
+        /// The files.
+        /// </value>
+        public virtual ICollection<File> Files { get; set; } 
     }
 
     public class Role : AbpRole<Tenant, User>

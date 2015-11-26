@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Abp.UI;
+using Abp.Web.Mvc.Authorization;
 using FileDrop.Interfaces;
 using FileDrop.Web.Helpers;
 using FileDrop.Web.Models;
@@ -14,6 +15,7 @@ using File = FileDrop.Domains.File;
 
 namespace FileDrop.Web.Controllers
 {
+    [AbpMvcAuthorize]
     public class FileController : FileDropControllerBase
     {
         #region Private Fields
