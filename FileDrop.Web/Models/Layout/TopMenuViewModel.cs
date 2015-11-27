@@ -7,5 +7,7 @@ namespace FileDrop.Web.Models.Layout
         public UserMenu MainMenu { get; set; }
 
         public string ActiveMenuItemName { get; set; }
+
+        public bool IsLoggedIn { get; set; }
     }
 }

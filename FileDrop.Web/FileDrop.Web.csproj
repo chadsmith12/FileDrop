@@ -322,6 +322,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="images\filedrop_blue.jpg" />
+    <Content Include="images\FILEDROP_WhiteBox.png" />
     <Content Include="js\files.js" />
     <Content Include="js\image-editor.js" />
     <Content Include="js\login.js" />
@@ -442,7 +443,7 @@
     <Content Include="packages.config" />
     <Content Include="Views\About\Index.cshtml" />
     <Content Include="Views\Shared\_TopBar.cshtml" />
-    <Content Include="Views\Layout\_LanguageSelection.cshtml" />
+    <Content Include="Views\Layout\_UserInfoBar.cshtml" />
     <Content Include="Views\Layout\_TopMenu.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Scripts\sweetalert\sweet-alert.scss" />

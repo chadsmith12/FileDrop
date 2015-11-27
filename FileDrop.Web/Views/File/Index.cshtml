@@ -7,6 +7,8 @@
 
 @Styles.Render("~/Bundles/dropzonecss")
 
+@Html.HiddenFor(x => x.UserId)
+
 <h2>
     Files
     <button id="uploadFile" class="btn btn-link" data-toggle="tooltip" data-placement="top" title="Upload Files">

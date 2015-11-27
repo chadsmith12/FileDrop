@@ -1,8 +1,11 @@
-﻿using System.Web.Mvc;
+﻿using System.Web;
+using System.Web.Mvc;
 using Abp.Application.Navigation;
 using Abp.Localization;
 using Abp.Threading;
+using FileDrop.Managers;
 using FileDrop.Web.Models.Layout;
+using Microsoft.Owin.Security;
 
 namespace FileDrop.Web.Controllers
 {
@@ -10,35 +13,53 @@ namespace FileDrop.Web.Controllers
     {
         private readonly IUserNavigationManager _userNavigationManager;
         private readonly ILocalizationManager _localizationManager;
+        private readonly UserManager _userManager;
 
-        public LayoutController(IUserNavigationManager userNavigationManager, ILocalizationManager localizationManager)
+        private IAuthenticationManager AuthenticationManager
+        {
+            get { return HttpContext.GetOwinContext().Authentication; }
+        }
+
+        public LayoutController(IUserNavigationManager userNavigationManager, ILocalizationManager localizationManager, UserManager userManager)
         {
             _userNavigationManager = userNavigationManager;
             _localizationManager = localizationManager;
+            _userManager = userManager;
         }
 
         [ChildActionOnly]
         public PartialViewResult TopMenu(string activeMenu = "")
         {
+            var isLoggedIn = AbpSession.UserId.HasValue;
             var model = new TopMenuViewModel
                         {
                             MainMenu = AsyncHelper.RunSync(() => _userNavigationManager.GetMenuAsync("MainMenu", AbpSession.UserId)),
-                            ActiveMenuItemName = activeMenu
+                            ActiveMenuItemName = activeMenu,
+                            IsLoggedIn = isLoggedIn
                         };
 
             return PartialView("_TopMenu", model);
         }
 
         [ChildActionOnly]
-        public PartialViewResult LanguageSelection()
+        public PartialViewResult UserInfoBar()
         {
-            var model = new LanguageSelectionViewModel
+            var userId = AbpSession.UserId;
+            string userName = string.Empty;
+
+            if (userId.HasValue)
+            {
+                var user = AsyncHelper.RunSync(() =>_userManager.FindByIdAsync(userId.Value));
+                userName = user.UserName;
+            }
+
+            var model = new UserInfoViewModel
                         {
-                            CurrentLanguage = _localizationManager.CurrentLanguage,
-                            Languages = _localizationManager.GetAllLanguages()
+                            UserName = userName,
+                            IsLoggedIn = userId.HasValue,
                         };
 
-            return PartialView("_LanguageSelection", model);
+            return PartialView("_UserInfoBar", model);
         }
     }
 }

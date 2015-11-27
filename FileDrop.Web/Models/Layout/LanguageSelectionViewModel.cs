@@ -3,10 +3,10 @@ using Abp.Localization;
 
 namespace FileDrop.Web.Models.Layout
 {
-    public class LanguageSelectionViewModel
+    public class UserInfoViewModel
     {
-        public LanguageInfo CurrentLanguage { get; set; }
+        public bool IsLoggedIn { get; set; }
 
-        public IReadOnlyList<LanguageInfo> Languages { get; set; }
+        public string UserName { get; set; }
     }
 }

@@ -16,20 +16,6 @@ namespace FileDrop.Web
             context.Manager.MainMenu
                 .AddItem(
                     new MenuItemDefinition(
-                        "Home",
-                        new LocalizableString("HomePage", FileDropConsts.LocalizationSourceName),
-                        url: "/",
-                        icon: "fa fa-home"
-                        )
-                ).AddItem(
-                    new MenuItemDefinition(
-                        "About",
-                        new LocalizableString("About", FileDropConsts.LocalizationSourceName),
-                        url: "/About",
-                        icon: "fa fa-info"
-                        )
-                ).AddItem(
-                    new MenuItemDefinition(
                         "Files",
                         new LocalizableString("Files", FileDropConsts.LocalizationSourceName),
                         url: "/File",

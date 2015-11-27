@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Abp.Runtime.Session;
 using Abp.UI;
 using Abp.Web.Mvc.Authorization;
 using FileDrop.Interfaces;
@@ -35,7 +36,8 @@ namespace FileDrop.Web.Controllers
 
         public PartialViewResult GetAllFiles(string searchTerm, bool filter)
         {
-            var files = _fileService.GetAllFiles(searchTerm, filter);
+            var userId = AbpSession.GetUserId();
+            var files = _fileService.GetAllFilesForUser(userId, searchTerm, filter);
             var model = new FilesViewModel {Files = files.ToList()};
 
             return PartialView("_FilesTable", model);
@@ -43,26 +45,30 @@ namespace FileDrop.Web.Controllers
 
         public ActionResult Index()
         {
-            var files = _fileService.GetAllFiles(string.Empty, false);
-            var model = new FilesViewModel {Files = files.ToList()};
+            var userId = AbpSession.GetUserId();
+            var files = _fileService.GetAllFilesForUser(userId, string.Empty, false).ToList();
+            var model = new FilesViewModel(files, userId);
+
+            ViewBag.IsLoggedIn = true;
 
             return View(model);
         }
 
         [HttpPost]
-        public JsonResult UpdateFileName(int id, string fileName)
+        public async Task<JsonResult> UpdateFileName(int id, string fileName)
         {
-            var file = _fileService.GetFileById(id);
+            var file = await _fileService.GetFileByIdAsync(id);
             file.FileName = fileName;
 
-            _fileService.SaveFile(file);
+            await _fileService.SaveFileAsync(file);
 
             return Json(new {saved = true});
         }
 
-        public ActionResult UploadFile()
+        public async Task<ActionResult> UploadFile()
         {
             string fileName = "";
+            var userId = AbpSession.GetUserId();
 
             try
             {
@@ -81,7 +87,7 @@ namespace FileDrop.Web.Controllers
                         binaryFile = binaryReady.ReadBytes(file.ContentLength);
                     }
 
-                    var fullPath = FileHelpers.GetPath(fileName, Server.MapPath(@"\App_Data\"));
+                    var fullPath = FileHelpers.GetPath(fileName, Server.MapPath(@"\App_Data\"), userId);
                     var saveFile = new File
                     {
                         FileName = fileName, // don't save the file name with the extension
@@ -89,11 +95,12 @@ namespace FileDrop.Web.Controllers
                         FileType = file.ContentType,
                         FilePath = fullPath,
                         UploadDateTime = DateTime.Now,
-                        IsImage = FileHelpers.IsImage(file.ContentType)
+                        IsImage = FileHelpers.IsImage(file.ContentType),
+                        UserId = userId
                     };
 
-                    FileHelpers.EncryptFileToDisk(binaryFile, fullPath, "zxcvbgfdsaqwert54321");
-                    _fileService.SaveFile(saveFile);
+                    await FileHelpers.EncryptFileToDiskAsync(binaryFile, fullPath, "zxcvbgfdsaqwert54321");
+                    await _fileService.SaveFileAsync(saveFile);
                 }
                 
             }
@@ -108,9 +115,10 @@ namespace FileDrop.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult SaveEditedImage(ImageEditorViewModel imageEditorViewModel)
+        public async Task<ActionResult> SaveEditedImage(ImageEditorViewModel imageEditorViewModel)
         {
-            var file = _fileService.GetFileById(imageEditorViewModel.FileId);
+            var userId = AbpSession.GetUserId();
+            var file = await _fileService.GetFileByIdAsync(imageEditorViewModel.FileId);
             // make a regular expression to get the type and image data quickly
             var imageRegex = Regex.Match(imageEditorViewModel.DataUrl, @"data:image/(?<type>.+?),(?<data>.+)");
             var imageType = imageRegex.Groups["type"].Value.Split(';')[0];
@@ -123,14 +131,14 @@ namespace FileDrop.Web.Controllers
             if (file.Id == 0)
             {
                 imageEditorViewModel.FileName += "." + imageType;
-                path = FileHelpers.GetPath(imageEditorViewModel.FileName, Server.MapPath(@"\App_Data\"));
+                path = FileHelpers.GetPath(imageEditorViewModel.FileName, Server.MapPath(@"\App_Data\"), userId);
             }
             else
             {
                 path = file.FilePath;
             }
 
-            FileHelpers.EncryptFileToDisk(binaryData, path, "zxcvbgfdsaqwert54321");
+            await FileHelpers.EncryptFileToDiskAsync(binaryData, path, "zxcvbgfdsaqwert54321");
 
             // go ahead and return if we are not making a new file
             if (file.Id != 0) return Json(new {fileName = file.FileName});
@@ -142,18 +150,19 @@ namespace FileDrop.Web.Controllers
                 FileSize = FileHelpers.BytesToMegaBytes(size),
                 UploadDateTime = DateTime.Now,
                 FileType = "image/" + imageType,
-                IsImage = true
+                IsImage = true,
+                UserId = userId
             };
 
-            _fileService.SaveFile(newFile);
+           await _fileService.SaveFileAsync(newFile);
             return Json(new {fileName = imageEditorViewModel.FileName});
         }
 
-        public ActionResult EditImage(int id)
+        public async Task<ActionResult> EditImage(int id)
         {
-            var file = _fileService.GetFileById(id);
-            var data = FileHelpers.ReadAllBytes(file.FilePath);
-            var fileDecrypted = FileHelpers.Decrypt(data, "zxcvbgfdsaqwert54321");
+            var file = await _fileService.GetFileByIdAsync(id);
+            var data = await FileHelpers.ReadAllBytesAsync(file.FilePath);
+            var fileDecrypted = await FileHelpers.DecryptAsync(data, "zxcvbgfdsaqwert54321");
             var base64 = Convert.ToBase64String(fileDecrypted);
             var dataUrl = FileHelpers.ToDataUrl(base64, file.FileType);
 
@@ -161,24 +170,25 @@ namespace FileDrop.Web.Controllers
             return View("ImageEditor", model);
         }
 
-        public void DownloadFile(int id)
+        public async Task DownloadFile(int id)
         {
-            var file = _fileService.GetFileById(id);
-            var data = FileHelpers.ReadAllBytes(file.FilePath);
-            var fileDecrypted = FileHelpers.Decrypt(data, "zxcvbgfdsaqwert54321");
+            var file = await _fileService.GetFileByIdAsync(id);
+            var data = await FileHelpers.ReadAllBytesAsync(file.FilePath);
+            var fileDecrypted = await FileHelpers.DecryptAsync(data, "zxcvbgfdsaqwert54321");
 
             Response.ContentType = MimeMapping.GetMimeMapping(file.FilePath);
             Response.AddHeader("Content-Disposition", string.Format("attachment; filename=" + Path.GetFileName(file.FilePath)));
-            Response.OutputStream.Write(fileDecrypted, 0, fileDecrypted.Length);
+            await Response.OutputStream.WriteAsync(fileDecrypted, 0, fileDecrypted.Length);
             Response.Flush();
         }
 
-        public void DownloadArchive()
+        public async Task DownloadArchive()
         {
-            var files = _fileService.GetAllFiles(string.Empty, false);
+            var userId = AbpSession.GetUserId();
+            var files = _fileService.GetAllFilesForUser(userId, string.Empty, false);
             var orginalDirectory =
                         new DirectoryInfo(string.Format("{0}Uploads", Server.MapPath(@"\App_Data\")));
-            var path = Path.Combine(orginalDirectory.ToString(), "archives");
+            var path = Path.Combine(orginalDirectory.ToString(), userId.ToString());
             var exists = Directory.Exists(path);
             if (!exists)
             {
@@ -189,8 +199,8 @@ namespace FileDrop.Web.Controllers
             foreach (var file in files)
             {
                 // decrypt the file and write the temp file
-                var data = FileHelpers.ReadAllBytes(file.FilePath);
-                var fileDecrypted = FileHelpers.Decrypt(data, "zxcvbgfdsaqwert54321");
+                var data = await FileHelpers.ReadAllBytesAsync(file.FilePath);
+                var fileDecrypted = await FileHelpers.DecryptAsync(data, "zxcvbgfdsaqwert54321");
                 var fullPath = string.Format("{0}\\{1}", path, file.FileName);
                 System.IO.File.WriteAllBytes(fullPath, fileDecrypted);
             }
@@ -205,10 +215,10 @@ namespace FileDrop.Web.Controllers
             var archive = Path.Combine(archivePath.ToString(), DateTime.Now.Ticks + ".zip");
             ZipFile.CreateFromDirectory(path, archive, CompressionLevel.Fastest, true);
 
-            var zipData = FileHelpers.ReadAllBytes(archive);
+            var zipData = await FileHelpers.ReadAllBytesAsync(archive);
             Response.ContentType = MimeMapping.GetMimeMapping(archive);
             Response.AddHeader("Content-Disposition", string.Format("attachment; filename=" + Path.GetFileName(archive)));
-            Response.OutputStream.Write(zipData, 0, zipData.Length);
+            await Response.OutputStream.WriteAsync(zipData, 0, zipData.Length);
             Response.Flush();
         }
 

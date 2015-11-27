@@ -28,6 +28,24 @@ namespace FileDrop.Web.Helpers
             cryptoFileStream.Close();
         }
 
+        public static async Task EncryptFileToDiskAsync(byte[] file, string outputPath, string key)
+        {
+            var salt = new byte[] { 0x27, 0xbc, 0xf0, 0x00, 0xad, 0xed, 0x7a, 0xee, 0xc5, 0xfe, 0x06, 0xaf, 0x4d, 0x08, 0x22, 0x3d };
+            var derivedBytes = new Rfc2898DeriveBytes(key, salt);
+
+            var test = await EncryptAsync(file, key);
+
+            var cryptoFileStream = new FileStream(outputPath, FileMode.Create);
+            var rmCrypt = new RijndaelManaged();
+            var cs = new CryptoStream(cryptoFileStream, rmCrypt.CreateEncryptor(derivedBytes.GetBytes(32), derivedBytes.GetBytes(16)), CryptoStreamMode.Write);
+
+            foreach (var data in file)
+                cs.WriteByte(data);
+
+            cs.Close();
+            cryptoFileStream.Close();
+        }
+
         public static byte[] Encrypt(byte[] data, string key)
         {
             var salt = new byte[] { 0x27, 0xbc, 0xf0, 0x00, 0xad, 0xed, 0x7a, 0xee, 0xc5, 0xfe, 0x06, 0xaf, 0x4d, 0x08, 0x22, 0x3d };
@@ -64,17 +82,30 @@ namespace FileDrop.Web.Helpers
             }
         }
 
+        public static async Task<byte[]> DecryptAsync(byte[] data, string key)
+        {
+            var salt = new byte[] { 0x27, 0xbc, 0xf0, 0x00, 0xad, 0xed, 0x7a, 0xee, 0xc5, 0xfe, 0x06, 0xaf, 0x4d, 0x08, 0x22, 0x3d };
+            var derivedBytes = new Rfc2898DeriveBytes(key, salt);
+            var algorithm = new RijndaelManaged();
+
+            using (var decryptor = algorithm.CreateDecryptor(derivedBytes.GetBytes(32), derivedBytes.GetBytes(16)))
+            {
+                return await DoCryptoAsync(decryptor, data);
+            }
+        }
+
         /// <summary>
         /// Gets the path.
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="mapPath">The map path.</param>
+        /// <param name="userId"></param>
         /// <returns></returns>
-        public static string GetPath(string filename, string mapPath)
+        public static string GetPath(string filename, string mapPath, long userId)
         {
             var orginalDirectory =
                         new DirectoryInfo(string.Format("{0}Uploads", mapPath));
-            var path = Path.Combine(orginalDirectory.ToString(), "uploadpath");
+            var path = Path.Combine(orginalDirectory.ToString(), userId.ToString());
             var exists = Directory.Exists(path);
 
             if (!exists)

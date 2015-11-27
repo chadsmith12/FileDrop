@@ -7,11 +7,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="~/"><i class="fa fa-cubes"></i> FileDrop</a>
+            <a class="navbar-brand" href="~/">FileDrop</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                @Html.Action("TopMenu", "Layout", new { activeMenu = ViewBag.ActiveMenu })
+                @Html.Action("TopMenu", "Layout", new {activeMenu = ViewBag.ActiveMenu})
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                @Html.Action("UserInfoBar","Layout")
             </ul>
         </div>
     </div>
