@@ -25,7 +25,7 @@ else
                     <td data-fileid="@item.Id" data-filename="true" class="col-md-6">
                         <span class="editText">@item.FileName</span>
                         @Html.TextBoxFor(model => item.FileName, new {style = "display:none; width: 50%" })
-                        <button data-url="@Url.Action("UpdateFileName", "File")" data-editmode="false" class="btn btn-danger btn-sm pull-right editFile" style="display: none">Edit</button>
+                        <button data-url="@Url.Action("UpdateFileName", "File")" data-editmode="false" class="btn btn-danger btn-sm pull-right editFile" style="display: none">Rename</button>
                     </td>
                     <td>@item.FileType</td>
                     <td>@string.Format("{0:N2}", item.FileSize)</td>

@@ -78,12 +78,14 @@ namespace FileDrop.Web
             //~/Bundles/dropzonejs
             bundles.Add(
                 new ScriptBundle("~/Bundles/dropzonejs")
-                    .Include("~/Scripts/dropzone.js"));
+                    .Include("~/Scripts/dropzone.js")
+                    .Include("~/js/files.js"));
 
             //~/Bundles/camanjs
             bundles.Add(
                 new ScriptBundle("~/Bundles/camanjs")
-                    .Include("~/Scripts/caman.full.min.js"));
+                    .Include("~/Scripts/caman.full.min.js")
+                    .Include("~/js/image-editor.js"));
 
 
             //~/Bundles/js
@@ -91,6 +93,8 @@ namespace FileDrop.Web
                 new ScriptBundle("~/Bundles/js")
                     .Include("~/js/main.js")
                 );
+
+            BundleTable.EnableOptimizations = true;
         }
     }
 }

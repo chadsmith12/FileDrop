@@ -135,7 +135,7 @@ $(document).ready(function () {
             editBtn.data("editmode", false);
             editBtn.removeClass("btn-primary");
             editBtn.addClass("btn-danger");
-            editBtn.text("Edit");
+            editBtn.text("Rename");
             $(cellInput).hide();
             $(cellText).text(inputValue);
             $(cellText).show();

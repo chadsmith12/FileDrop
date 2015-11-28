@@ -7,13 +7,11 @@ function applySliders() {
     var sepia = parseInt($('#sepiaSlider').val());
     var gamma = parseInt($("#gammaSlider").val());
     var exposure = parseInt($("#exposureSlider").val());
-
     abp.ui.setBusy("#imageEditor");
+    
     Caman("#editImage", function () {
         this.revert(false);
         this.brightness(brightness).hue(hue).contrast(contrast).vibrance(vibrance).sepia(sepia).gamma(gamma).exposure(exposure).render();
-
-        abp.ui.clearBusy("#imageEditor");
     });
 }
 
@@ -44,6 +42,11 @@ $(document).ready(function () {
 
     // get the image ready, turn it into a canvas element so it can be edited
     Caman("#editImage", function () { });
+
+    // listen to caman events so we can set the image editor to busy or not
+    Caman.Event.listen("renderFinished", function(job) {
+        abp.ui.clearBusy("#imageEditor");
+    });
 
     // apply our sliders when we change them
     $("input[type=range]").on("change", applySliders);
@@ -77,8 +80,19 @@ $(document).ready(function () {
                     this.radialBlur().render();
                 });
                 break;
+
+            case "greyscale":
+                Caman("#editImage", function () {
+                    this.greyscale().render();
+                });
+                break;
+
+            case "vintage":
+                Caman("#editImage", function() {
+                    this.vintage().render();
+                });
+                break;
         }
-        abp.ui.clearBusy("#imageEditor");
     });
 
     // reset the image back to the original

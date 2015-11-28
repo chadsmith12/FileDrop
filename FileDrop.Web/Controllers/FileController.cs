@@ -99,7 +99,7 @@ namespace FileDrop.Web.Controllers
                         UserId = userId
                     };
 
-                    await FileHelpers.EncryptFileToDiskAsync(binaryFile, fullPath, "zxcvbgfdsaqwert54321");
+                    FileHelpers.EncryptFileToDisk(binaryFile, fullPath, "zxcvbgfdsaqwert54321");
                     await _fileService.SaveFileAsync(saveFile);
                 }
                 
@@ -138,7 +138,7 @@ namespace FileDrop.Web.Controllers
                 path = file.FilePath;
             }
 
-            await FileHelpers.EncryptFileToDiskAsync(binaryData, path, "zxcvbgfdsaqwert54321");
+            FileHelpers.EncryptFileToDisk(binaryData, path, "zxcvbgfdsaqwert54321");
 
             // go ahead and return if we are not making a new file
             if (file.Id != 0) return Json(new {fileName = file.FileName});
@@ -161,8 +161,8 @@ namespace FileDrop.Web.Controllers
         public async Task<ActionResult> EditImage(int id)
         {
             var file = await _fileService.GetFileByIdAsync(id);
-            var data = await FileHelpers.ReadAllBytesAsync(file.FilePath);
-            var fileDecrypted = await FileHelpers.DecryptAsync(data, "zxcvbgfdsaqwert54321");
+            var data = FileHelpers.ReadAllBytes(file.FilePath);
+            var fileDecrypted = FileHelpers.Decrypt(data, "zxcvbgfdsaqwert54321");
             var base64 = Convert.ToBase64String(fileDecrypted);
             var dataUrl = FileHelpers.ToDataUrl(base64, file.FileType);
 
@@ -186,13 +186,12 @@ namespace FileDrop.Web.Controllers
         {
             var userId = AbpSession.GetUserId();
             var files = _fileService.GetAllFilesForUser(userId, string.Empty, false);
-            var orginalDirectory =
-                        new DirectoryInfo(string.Format("{0}Uploads", Server.MapPath(@"\App_Data\")));
-            var path = Path.Combine(orginalDirectory.ToString(), userId.ToString());
-            var exists = Directory.Exists(path);
+            var tempDirectory = new DirectoryInfo(string.Format("{0}temp", Server.MapPath(@"\App_Data\")));
+            var tempPath = Path.Combine(tempDirectory.ToString(), userId.ToString());
+            var exists = Directory.Exists(tempPath);
             if (!exists)
             {
-                Directory.CreateDirectory(path);
+                Directory.CreateDirectory(tempPath);
             }
 
             // get all files ready to be archived
@@ -201,7 +200,7 @@ namespace FileDrop.Web.Controllers
                 // decrypt the file and write the temp file
                 var data = await FileHelpers.ReadAllBytesAsync(file.FilePath);
                 var fileDecrypted = await FileHelpers.DecryptAsync(data, "zxcvbgfdsaqwert54321");
-                var fullPath = string.Format("{0}\\{1}", path, file.FileName);
+                var fullPath = string.Format("{0}\\{1}", tempPath, file.FileName);
                 System.IO.File.WriteAllBytes(fullPath, fileDecrypted);
             }
 
@@ -213,13 +212,17 @@ namespace FileDrop.Web.Controllers
                 Directory.CreateDirectory(archivePath.ToString());
             }
             var archive = Path.Combine(archivePath.ToString(), DateTime.Now.Ticks + ".zip");
-            ZipFile.CreateFromDirectory(path, archive, CompressionLevel.Fastest, true);
+            ZipFile.CreateFromDirectory(tempPath, archive, CompressionLevel.Fastest, true);
 
             var zipData = await FileHelpers.ReadAllBytesAsync(archive);
             Response.ContentType = MimeMapping.GetMimeMapping(archive);
             Response.AddHeader("Content-Disposition", string.Format("attachment; filename=" + Path.GetFileName(archive)));
             await Response.OutputStream.WriteAsync(zipData, 0, zipData.Length);
             Response.Flush();
+
+            // Delete the temp directory and archive directory
+            Directory.Delete(tempDirectory.ToString(), true);
+            Directory.Delete(archivePath.ToString(), true);
         }
 
         #endregion
