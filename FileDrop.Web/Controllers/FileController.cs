@@ -100,7 +100,8 @@ namespace FileDrop.Web.Controllers
                         UserId = userId
                     };
 
-                    FileHelpers.EncryptFileToDiskAsync(binaryFile, fullPath, "zxcvbgfdsaqwert54321");
+                    // go back to the main UI thread and do whatever until we are ready
+                    await FileHelpers.EncryptFileToDiskAsync(binaryFile, fullPath, "zxcvbgfdsaqwert54321");
                     await _fileService.SaveFileAsync(saveFile);
                 }
                 
