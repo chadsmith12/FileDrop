@@ -7,5 +7,6 @@ Upload and store your files fully encrypted in the cloud
 
 ##Client Side Libraries:
 *DropZoneJS - Drag and Drop File Uploads
+
 *CamanJS - Image Manipulation
 
