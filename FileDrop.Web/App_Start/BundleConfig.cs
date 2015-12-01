@@ -94,7 +94,7 @@ namespace FileDrop.Web
                     .Include("~/js/main.js")
                 );
 
-            BundleTable.EnableOptimizations = true;
+            //BundleTable.EnableOptimizations = true;
         }
     }
 }

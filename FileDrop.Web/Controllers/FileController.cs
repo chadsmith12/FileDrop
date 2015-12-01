@@ -65,6 +65,7 @@ namespace FileDrop.Web.Controllers
             return Json(new {saved = true});
         }
 
+        [HttpPost]
         public async Task<ActionResult> UploadFile()
         {
             string fileName = "";
@@ -99,15 +100,14 @@ namespace FileDrop.Web.Controllers
                         UserId = userId
                     };
 
-                    FileHelpers.EncryptFileToDisk(binaryFile, fullPath, "zxcvbgfdsaqwert54321");
+                    FileHelpers.EncryptFileToDiskAsync(binaryFile, fullPath, "zxcvbgfdsaqwert54321");
                     await _fileService.SaveFileAsync(saveFile);
                 }
                 
             }
             catch (Exception ex)
             {
-                // throw the user friendly exception so the user sees the error
-                throw new UserFriendlyException("I'm sorry, there was an error saving the file.");
+                throw new Exception(ex.Message);
             }
 
             return Json(new {message = fileName});
@@ -118,7 +118,9 @@ namespace FileDrop.Web.Controllers
         public async Task<ActionResult> SaveEditedImage(ImageEditorViewModel imageEditorViewModel)
         {
             var userId = AbpSession.GetUserId();
-            var file = await _fileService.GetFileByIdAsync(imageEditorViewModel.FileId);
+            // continue on with whatever we need to do until we get this file and are ready to do something with it
+            var fileTask = _fileService.GetFileByIdAsync(imageEditorViewModel.FileId);
+
             // make a regular expression to get the type and image data quickly
             var imageRegex = Regex.Match(imageEditorViewModel.DataUrl, @"data:image/(?<type>.+?),(?<data>.+)");
             var imageType = imageRegex.Groups["type"].Value.Split(';')[0];
@@ -127,8 +129,10 @@ namespace FileDrop.Web.Controllers
             var size = binaryData.Length;
             string path;
 
+            // we have done all the work we can do without requiring the file, no await till that task is done
+            var file = await fileTask;
             // saving as a new file
-            if (file.Id == 0)
+            if (imageEditorViewModel.FileId == 0)
             {
                 imageEditorViewModel.FileName += "." + imageType;
                 path = FileHelpers.GetPath(imageEditorViewModel.FileName, Server.MapPath(@"\App_Data\"), userId);
@@ -138,7 +142,7 @@ namespace FileDrop.Web.Controllers
                 path = file.FilePath;
             }
 
-            FileHelpers.EncryptFileToDisk(binaryData, path, "zxcvbgfdsaqwert54321");
+            await FileHelpers.EncryptFileToDiskAsync(binaryData, path, "zxcvbgfdsaqwert54321");
 
             // go ahead and return if we are not making a new file
             if (file.Id != 0) return Json(new {fileName = file.FileName});
@@ -154,15 +158,15 @@ namespace FileDrop.Web.Controllers
                 UserId = userId
             };
 
-           await _fileService.SaveFileAsync(newFile);
+            await _fileService.SaveFileAsync(newFile);
             return Json(new {fileName = imageEditorViewModel.FileName});
         }
 
         public async Task<ActionResult> EditImage(int id)
         {
             var file = await _fileService.GetFileByIdAsync(id);
-            var data = FileHelpers.ReadAllBytes(file.FilePath);
-            var fileDecrypted = FileHelpers.Decrypt(data, "zxcvbgfdsaqwert54321");
+            var data = await FileHelpers.ReadAllBytesAsync(file.FilePath);
+            var fileDecrypted = await FileHelpers.DecryptAsync(data, "zxcvbgfdsaqwert54321");
             var base64 = Convert.ToBase64String(fileDecrypted);
             var dataUrl = FileHelpers.ToDataUrl(base64, file.FileType);
 
@@ -197,10 +201,10 @@ namespace FileDrop.Web.Controllers
             // get all files ready to be archived
             foreach (var file in files)
             {
+                var fullPath = string.Format("{0}\\{1}", tempPath, file.FileName);
                 // decrypt the file and write the temp file
                 var data = await FileHelpers.ReadAllBytesAsync(file.FilePath);
                 var fileDecrypted = await FileHelpers.DecryptAsync(data, "zxcvbgfdsaqwert54321");
-                var fullPath = string.Format("{0}\\{1}", tempPath, file.FileName);
                 System.IO.File.WriteAllBytes(fullPath, fileDecrypted);
             }
 

@@ -72,7 +72,13 @@ $(document).ready(function () {
                     "</div>",
         success: function (data) {
             var resourceUrl = $("#filesTable").data("resourceurl");
-            reloadFileTable(resourceUrl, $("#filesTable"), true);
+            reloadFileTable(resourceUrl, $("#filesTable"), false);
+            debugger;
+            var response = data.xhr.response;
+            var message = JSON.parse(response).result;
+            var fileName = message.message;
+            abp.notify.success(fileName + " successfully uploaded");
+            //console.log(data);
             this.removeAllFiles();
             $("#progressSection").hide();
             $("#uploadModal").modal("hide");

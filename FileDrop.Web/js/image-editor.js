@@ -13,6 +13,18 @@ function applySliders() {
         this.revert(false);
         this.brightness(brightness).hue(hue).contrast(contrast).vibrance(vibrance).sepia(sepia).gamma(gamma).exposure(exposure).render();
     });
+
+    // reset the data uri we would be using for the download
+    var canvas = document.getElementById("editImage");
+    var $downloadObject = $("#download");
+    var imageData = canvas.toDataURL();
+    var date = new Date();
+    var hour = date.getHours();
+    var minutes = date.getMinutes();
+    var fileName = hour.toString() + "-" + minutes.toString() + "-edit.png";
+
+    $downloadObject.attr("href", imageData);
+    $downloadObject.attr("download", fileName);
 }
 
 // function to save the file
@@ -93,6 +105,18 @@ $(document).ready(function () {
                 });
                 break;
         }
+
+        // reset the data uri we would be using for the download
+        var canvas = document.getElementById("editImage");
+        var $downloadObject = $("#download");
+        var imageData = canvas.toDataURL();
+        var date = new Date();
+        var hour = date.getHours();
+        var minutes = date.getMinutes();
+        var fileName = hour.toString() + "-" + minutes.toString() + "-edit.png";
+
+        $downloadObject.attr("href", imageData);
+        $downloadObject.attr("download", fileName);
     });
 
     // reset the image back to the original
@@ -105,18 +129,18 @@ $(document).ready(function () {
         });
     });
 
-    $("#download").on("click", function () {
-        var $downloadObject = $(this);
-        var canvas = document.getElementById("editImage");
-        var imageData = canvas.toDataURL("image/jpeg", 1);
-        var date = new Date();
-        var hour = date.getHours();
-        var minutes = date.getMinutes();
-        var fileName = hour.toString() + "-" + minutes.toString() + "-edit.jpeg";
+    //$("#download").on("click", function () {
+    //    var $downloadObject = $(this);
+    //    var canvas = document.getElementById("editImage");
+    //    var imageData = canvas.toDataURL();
+    //    var date = new Date();
+    //    var hour = date.getHours();
+    //    var minutes = date.getMinutes();
+    //    var fileName = hour.toString() + "-" + minutes.toString() + "-edit.png";
 
-        $downloadObject.attr("href", imageData);
-        $downloadObject.attr("download", fileName);
-    });
+    //    $downloadObject.attr("href", imageData);
+    //    $downloadObject.attr("download", fileName);
+    //});
 
     // saving the image they edited
     $("#save").on("click", function () {
@@ -139,20 +163,22 @@ $(document).ready(function () {
             confirmButtonText: "Yes, overwrite it!",
             cancelButtonText: "No, save as a new file!",
             closeOnCancel: false,
-            closeOnConfirm: false
+            closeOnConfirm: true
         }, function (isConfirm) {
             // overwriting file
             if (isConfirm) {
                 // TODO: save file here by overwriting file
                 file.append("ImageEditorViewModel.FileId", fileId);
-                saveFile(resourceUrl, file).done(function(data) {
+
+                abp.ui.setBusy($("body"), saveFile(resourceUrl, file).done(function (data) {
                     swal({
                         title: "Saved!",
                         text: "Your file has successfully been saved!",
                         type: "success",
                         confirmButtonColor: "#007fff"
                     });
-                });
+                }));
+
             }
             // as a new file, get the filename
             else {
@@ -174,16 +200,15 @@ $(document).ready(function () {
                     // TODO: Add saving as new file here
                     file.append("ImageEditorViewModel.FileId", 0);
                     file.append("ImageEditorViewModel.FileName", inputValue);
-                    saveFile(resourceUrl, file).done(function (data) {
+                    abp.ui.setBusy($("body"), saveFile(resourceUrl, file).done(function(data) {
                         console.log(data);
-                        debugger;
                         swal({
                             title: "Saved!",
                             text: data.result.fileName + " has successfully been saved!",
                             type: "success",
                             confirmButtonColor: "#007fff"
                         });
-                    });
+                    }));
                 });
             }
         });
